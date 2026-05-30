@@ -75,7 +75,7 @@ const ovas = [
     num: 13,
     topic: "Teoría de comportamientos",
     author: "Álvaro José Rubio Roa",
-    link: null
+    link: "https://mariobr1011.github.io/trabajo-tgs/"
   },
   {
     num: 14,
