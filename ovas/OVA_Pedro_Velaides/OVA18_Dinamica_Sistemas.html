@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OVA #18 — Dinámica de Sistemas | Pedro Velaides</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Inter:wght@300;400;600;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --card: #16161f;
+    --accent: #00f5d4;
+    --accent2: #f72585;
+    --accent3: #ffd60a;
+    --accent4: #7209b7;
+    --text: #e8e8f0;
+    --muted: #6b6b80;
+    --border: rgba(0,245,212,0.15);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ANIMATED GRID BACKGROUND */
+  body::before {
+    content:'';
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(rgba(0,245,212,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,245,212,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events:none; z-index:0;
+    animation: gridMove 20s linear infinite;
+  }
+  @keyframes gridMove {
+    0%{background-position:0 0} 100%{background-position:60px 60px}
+  }
+
+  /* NAV */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:1000;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display:flex; align-items:center; justify-content:space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family:'Bebas Neue'; font-size:1.4rem; color:var(--accent);
+    letter-spacing:2px;
+  }
+  .nav-links { display:flex; gap:1.5rem; }
+  .nav-links a {
+    color:var(--muted); text-decoration:none; font-size:0.8rem;
+    font-family:'Space Mono'; transition:color 0.2s;
+    text-transform:uppercase; letter-spacing:1px;
+  }
+  .nav-links a:hover { color:var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    text-align:center; padding: 80px 2rem 4rem;
+    position:relative; z-index:1;
+  }
+  .hero-badge {
+    background: rgba(0,245,212,0.1); border:1px solid var(--accent);
+    color:var(--accent); font-family:'Space Mono'; font-size:0.7rem;
+    padding:0.4rem 1.2rem; border-radius:100px; letter-spacing:2px;
+    text-transform:uppercase; margin-bottom:2rem;
+    display:inline-block;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100%{box-shadow:0 0 0 0 rgba(0,245,212,0.4)}
+    50%{box-shadow:0 0 0 10px rgba(0,245,212,0)}
+  }
+  .hero h1 {
+    font-family:'Bebas Neue'; font-size:clamp(3rem, 10vw, 8rem);
+    line-height:0.9; letter-spacing:2px;
+    background: linear-gradient(135deg, #fff 30%, var(--accent) 70%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text;
+    margin-bottom:1rem;
+  }
+  .hero-sub {
+    font-family:'Space Mono'; font-size:clamp(0.9rem,2vw,1.1rem);
+    color:var(--accent2); margin-bottom:2rem; letter-spacing:1px;
+  }
+  .hero-desc {
+    max-width:600px; color:var(--muted); font-size:1rem; line-height:1.8;
+    margin-bottom:3rem;
+  }
+  .hero-meme {
+    font-size:5rem; margin-bottom:1rem;
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100%{transform:translateY(0)} 50%{transform:translateY(-15px)}
+  }
+  .btn-primary {
+    background: var(--accent); color:#000; padding:0.8rem 2rem;
+    border-radius:4px; text-decoration:none; font-family:'Space Mono';
+    font-weight:700; font-size:0.9rem; display:inline-block;
+    transition:all 0.3s; letter-spacing:1px;
+    border:2px solid var(--accent);
+  }
+  .btn-primary:hover {
+    background:transparent; color:var(--accent);
+    box-shadow:0 0 30px rgba(0,245,212,0.4);
+  }
+  .btn-ghost {
+    background:transparent; color:var(--text); padding:0.8rem 2rem;
+    border-radius:4px; text-decoration:none; font-family:'Space Mono';
+    font-size:0.9rem; border:2px solid var(--border);
+    display:inline-block; margin-left:1rem; transition:all 0.3s;
+  }
+  .btn-ghost:hover { border-color:var(--accent); color:var(--accent); }
+
+  /* SECTIONS */
+  section { position:relative; z-index:1; padding:6rem 2rem; max-width:1200px; margin:0 auto; }
+  .section-label {
+    font-family:'Space Mono'; font-size:0.7rem; color:var(--accent);
+    text-transform:uppercase; letter-spacing:4px; margin-bottom:0.5rem;
+  }
+  .section-title {
+    font-family:'Bebas Neue'; font-size:clamp(2.5rem,6vw,4.5rem);
+    line-height:1; margin-bottom:2rem;
+  }
+  .section-title span { color:var(--accent2); }
+
+  /* MEME CARDS */
+  .meme-strip {
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    gap:1.5rem; margin: 3rem 0;
+  }
+  .meme-card {
+    background: var(--card); border:1px solid var(--border);
+    border-radius:12px; overflow:hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor:default;
+  }
+  .meme-card:hover {
+    transform:translateY(-8px) rotate(-1deg);
+    box-shadow:0 20px 60px rgba(0,245,212,0.15);
+  }
+  .meme-img {
+    width:100%; aspect-ratio:1;
+    background:var(--surface);
+    display:flex; align-items:center; justify-content:center;
+    font-size:6rem; position:relative; overflow:hidden;
+  }
+  .meme-img::before {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(135deg, rgba(114,9,183,0.3), rgba(247,37,133,0.3));
+  }
+  .meme-caption {
+    padding:1rem;
+    font-family:'Space Mono'; font-size:0.75rem;
+    color:var(--muted); line-height:1.5;
+  }
+  .meme-caption strong { color:var(--accent3); display:block; margin-bottom:0.3rem; }
+
+  /* TIMELINE / FASES */
+  .timeline { position:relative; padding-left:2rem; }
+  .timeline::before {
+    content:''; position:absolute; left:0; top:0; bottom:0;
+    width:2px; background:linear-gradient(to bottom, var(--accent), var(--accent2));
+  }
+  .timeline-item {
+    position:relative; margin-bottom:3rem; padding-left:2rem;
+    opacity:0; transform:translateX(-30px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .timeline-item.visible { opacity:1; transform:translateX(0); }
+  .timeline-dot {
+    position:absolute; left:-2.5rem; top:0.3rem;
+    width:16px; height:16px; border-radius:50%;
+    background:var(--accent); box-shadow:0 0 20px var(--accent);
+    border:3px solid var(--bg);
+  }
+  .timeline-num {
+    font-family:'Bebas Neue'; font-size:0.9rem; color:var(--accent);
+    letter-spacing:2px; margin-bottom:0.3rem;
+  }
+  .timeline-title {
+    font-family:'Bebas Neue'; font-size:1.8rem; margin-bottom:0.5rem;
+  }
+  .timeline-desc { color:var(--muted); font-size:0.9rem; line-height:1.7; }
+  .timeline-tag {
+    display:inline-block; background:rgba(247,37,133,0.15);
+    border:1px solid rgba(247,37,133,0.4); color:var(--accent2);
+    font-family:'Space Mono'; font-size:0.65rem; padding:0.2rem 0.6rem;
+    border-radius:4px; margin-top:0.8rem; letter-spacing:1px;
+  }
+
+  /* CONCEPT CARDS */
+  .concepts-grid {
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:1.5rem; margin-top:2rem;
+  }
+  .concept-card {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:12px; padding:1.5rem;
+    transition:all 0.3s; position:relative; overflow:hidden;
+  }
+  .concept-card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg, var(--accent), var(--accent4));
+  }
+  .concept-card:hover {
+    border-color:var(--accent);
+    box-shadow:0 10px 40px rgba(0,245,212,0.1);
+    transform:translateY(-4px);
+  }
+  .concept-icon { font-size:2.5rem; margin-bottom:1rem; }
+  .concept-name {
+    font-family:'Bebas Neue'; font-size:1.4rem; color:var(--accent);
+    margin-bottom:0.5rem;
+  }
+  .concept-def { font-size:0.85rem; color:var(--muted); line-height:1.6; }
+
+  /* GAMES SECTION */
+  .game-container {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:16px; padding:2rem; margin:2rem 0;
+  }
+  .game-title {
+    font-family:'Bebas Neue'; font-size:2rem; color:var(--accent3);
+    margin-bottom:0.5rem;
+  }
+  .game-subtitle { color:var(--muted); font-size:0.85rem; margin-bottom:2rem; }
+
+  /* GAME 1: Clasificador Drag & Drop simplificado */
+  .classifier-grid {
+    display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem;
+  }
+  .drop-zone {
+    background:rgba(0,0,0,0.3); border:2px dashed var(--border);
+    border-radius:10px; padding:1.5rem; min-height:150px;
+    transition:all 0.3s;
+  }
+  .drop-zone.highlight { border-color:var(--accent); background:rgba(0,245,212,0.05); }
+  .drop-zone h4 {
+    font-family:'Space Mono'; font-size:0.8rem; color:var(--accent2);
+    text-transform:uppercase; letter-spacing:1px; margin-bottom:1rem;
+    display:flex; align-items:center; gap:0.5rem;
+  }
+  .drop-zone.wrong { border-color:var(--accent2); animation: shake 0.3s; }
+  .drop-zone.correct { border-color:#00ff88; }
+  @keyframes shake {
+    0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)}
+  }
+
+  .draggables { display:flex; flex-wrap:wrap; gap:0.8rem; margin-bottom:1.5rem; }
+  .drag-item {
+    background:rgba(114,9,183,0.3); border:1px solid rgba(114,9,183,0.6);
+    color:var(--text); padding:0.5rem 1rem; border-radius:8px;
+    font-family:'Space Mono'; font-size:0.75rem; cursor:grab;
+    transition:all 0.2s; user-select:none;
+  }
+  .drag-item:hover { background:rgba(114,9,183,0.5); transform:scale(1.05); }
+  .drag-item.placed { opacity:0.4; cursor:default; }
+  .placed-item {
+    background:rgba(0,245,212,0.15); border:1px solid rgba(0,245,212,0.4);
+    color:var(--accent); padding:0.4rem 0.8rem; border-radius:6px;
+    font-family:'Space Mono'; font-size:0.7rem; margin:0.3rem;
+    display:inline-block; cursor:pointer;
+  }
+
+  /* GAME 2: Quiz */
+  .quiz-question {
+    background:rgba(0,0,0,0.3); border-radius:10px; padding:1.5rem;
+    margin-bottom:1rem;
+  }
+  .quiz-q-text {
+    font-size:1rem; margin-bottom:1rem; line-height:1.6;
+  }
+  .quiz-options { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; }
+  .quiz-opt {
+    background:rgba(255,255,255,0.05); border:1px solid var(--border);
+    border-radius:8px; padding:0.8rem 1rem; cursor:pointer;
+    font-size:0.85rem; transition:all 0.2s; text-align:left;
+    color:var(--text);
+  }
+  .quiz-opt:hover:not(:disabled) { border-color:var(--accent); background:rgba(0,245,212,0.1); }
+  .quiz-opt.correct { background:rgba(0,255,136,0.15); border-color:#00ff88; color:#00ff88; }
+  .quiz-opt.wrong { background:rgba(247,37,133,0.15); border-color:var(--accent2); color:var(--accent2); }
+  .quiz-opt:disabled { cursor:default; }
+  .quiz-feedback {
+    margin-top:1rem; padding:1rem; border-radius:8px;
+    font-size:0.85rem; display:none;
+  }
+  .quiz-feedback.show { display:block; }
+  .quiz-feedback.correct-fb { background:rgba(0,255,136,0.1); border:1px solid rgba(0,255,136,0.3); color:#00ff88; }
+  .quiz-feedback.wrong-fb { background:rgba(247,37,133,0.1); border:1px solid rgba(247,37,133,0.3); color:var(--accent2); }
+
+  /* GAME 3: Simulador */
+  .simulator {
+    background:rgba(0,0,0,0.5); border-radius:12px; padding:2rem;
+  }
+  .sim-controls { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.5rem; margin-bottom:2rem; }
+  .sim-control label {
+    font-family:'Space Mono'; font-size:0.7rem; color:var(--accent);
+    text-transform:uppercase; letter-spacing:1px; display:block; margin-bottom:0.5rem;
+  }
+  .sim-control input[type=range] {
+    width:100%; accent-color:var(--accent); height:4px;
+  }
+  .sim-control .val {
+    font-family:'Space Mono'; font-size:0.9rem; color:var(--accent3);
+    margin-top:0.3rem;
+  }
+  .sim-canvas {
+    width:100%; height:220px; background:rgba(0,0,0,0.4);
+    border-radius:8px; border:1px solid var(--border);
+    position:relative; overflow:hidden;
+  }
+  canvas { display:block; }
+  .sim-legend { display:flex; gap:2rem; margin-top:1rem; flex-wrap:wrap; }
+  .sim-leg-item { display:flex; align-items:center; gap:0.5rem; font-size:0.8rem; color:var(--muted); }
+  .sim-leg-dot { width:12px; height:3px; border-radius:2px; }
+
+  /* REFERENCES */
+  .ref-card {
+    background:var(--card); border-left:3px solid var(--accent4);
+    padding:1rem 1.5rem; margin:0.8rem 0; border-radius:0 8px 8px 0;
+    font-size:0.85rem; color:var(--muted); line-height:1.6;
+  }
+  .ref-card strong { color:var(--text); }
+
+  /* VIDEOS section */
+  .video-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem; margin-top:2rem; }
+  .video-card {
+    background:var(--card); border:1px solid var(--border); border-radius:12px;
+    overflow:hidden; transition:transform 0.3s;
+  }
+  .video-card:hover { transform:translateY(-4px); }
+  .video-thumb {
+    background:rgba(114,9,183,0.2); aspect-ratio:16/9;
+    display:flex; align-items:center; justify-content:center;
+    font-size:3rem; position:relative; cursor:pointer;
+    text-decoration:none;
+  }
+  .video-thumb::after {
+    content:'▶'; position:absolute;
+    font-size:2rem; background:rgba(0,0,0,0.6);
+    width:60px; height:60px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .video-info { padding:1rem; }
+  .video-title { font-weight:600; margin-bottom:0.3rem; font-size:0.9rem; }
+  .video-desc { font-size:0.8rem; color:var(--muted); }
+
+  /* SCORE BOARD */
+  .scoreboard {
+    background:rgba(0,245,212,0.05); border:1px solid var(--border);
+    border-radius:12px; padding:1.5rem; display:flex;
+    align-items:center; gap:2rem; flex-wrap:wrap; margin-top:2rem;
+  }
+  .score-item { text-align:center; }
+  .score-num { font-family:'Bebas Neue'; font-size:3rem; color:var(--accent); line-height:1; }
+  .score-label { font-family:'Space Mono'; font-size:0.65rem; color:var(--muted); text-transform:uppercase; letter-spacing:1px; }
+
+  /* CREDITS */
+  .credits {
+    background:var(--surface); border-top:1px solid var(--border);
+    padding:3rem 2rem; text-align:center; position:relative; z-index:1;
+  }
+  .credits-logo { font-family:'Bebas Neue'; font-size:2rem; color:var(--accent); margin-bottom:0.5rem; }
+  .credits-info { color:var(--muted); font-size:0.85rem; line-height:1.8; }
+
+  /* NOTIFICATION */
+  .notif {
+    position:fixed; bottom:2rem; right:2rem; z-index:9999;
+    background:var(--card); border:1px solid var(--accent);
+    padding:1rem 1.5rem; border-radius:10px;
+    font-family:'Space Mono'; font-size:0.8rem;
+    transform:translateX(200%); transition:transform 0.4s;
+    max-width:300px;
+  }
+  .notif.show { transform:translateX(0); }
+  .notif-icon { font-size:1.5rem; margin-bottom:0.3rem; }
+
+  /* RESPONSIVE */
+  @media(max-width:768px){
+    .nav-links { display:none; }
+    .classifier-grid { grid-template-columns:1fr; }
+    .quiz-options { grid-template-columns:1fr; }
+    .sim-controls { grid-template-columns:1fr; }
+    section { padding:4rem 1rem; }
+    .btn-ghost { margin-left:0; margin-top:0.5rem; }
+  }
+
+  /* PROGRESS BAR */
+  .progress-bar {
+    position:fixed; top:60px; left:0; height:3px;
+    background:linear-gradient(90deg, var(--accent), var(--accent2));
+    z-index:999; transition:width 0.1s;
+  }
+
+  /* HIGHLIGHT BOX */
+  .highlight-box {
+    background:linear-gradient(135deg,rgba(0,245,212,0.08),rgba(114,9,183,0.08));
+    border:1px solid var(--border); border-radius:12px; padding:2rem;
+    margin:2rem 0; position:relative;
+  }
+  .highlight-box::before {
+    content:'💡'; position:absolute; top:-1rem; left:1.5rem;
+    background:var(--bg); padding:0 0.5rem; font-size:1.2rem;
+  }
+
+  /* TABLE STYLE */
+  .styled-table {
+    width:100%; border-collapse:collapse; margin:2rem 0; font-size:0.85rem;
+  }
+  .styled-table th {
+    background:rgba(0,245,212,0.1); color:var(--accent);
+    font-family:'Space Mono'; font-size:0.7rem; text-transform:uppercase;
+    letter-spacing:1px; padding:0.8rem 1rem; text-align:left;
+    border-bottom:1px solid var(--border);
+  }
+  .styled-table td {
+    padding:0.8rem 1rem; border-bottom:1px solid rgba(255,255,255,0.05);
+    color:var(--muted);
+  }
+  .styled-table tr:hover td { background:rgba(255,255,255,0.02); color:var(--text); }
+
+  .tag-accent { color:var(--accent); font-weight:600; }
+  .tag-pink { color:var(--accent2); font-weight:600; }
+
+  /* SCROLL REVEAL */
+  .reveal { opacity:0; transform:translateY(30px); transition:all 0.6s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">⚙️ OVA #18</div>
+  <div class="nav-links">
+    <a href="#intro">Inicio</a>
+    <a href="#conceptos">Conceptos</a>
+    <a href="#metodologia">Metodología</a>
+    <a href="#juegos">Juegos</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#videos">Videos</a>
+    <a href="#creditos">Créditos</a>
+  </div>
+</nav>
+
+<!-- NOTIFICATION -->
+<div class="notif" id="notif">
+  <div class="notif-icon">🎉</div>
+  <div id="notifMsg">¡Bienvenido!</div>
+</div>
+
+<!-- ===== HERO ===== -->
+<div class="hero" id="intro">
+  <div class="hero-meme">⚙️</div>
+  <div class="hero-badge">📚 TGS — Proyecto Final OVA #18</div>
+  <h1>METODOLOGÍA<br>DINÁMICA DE<br>SISTEMAS</h1>
+  <p class="hero-sub">// Cómo crear modelos que predigan el futuro (o casi)</p>
+  <p class="hero-desc">Aprende paso a paso la metodología para modelar sistemas complejos del mundo real. Desde un diagrama causal hasta una simulación funcional — todo en una OVA.</p>
+  <div>
+    <a href="#metodologia" class="btn-primary">Empezar a aprender 🚀</a>
+    <a href="#juegos" class="btn-ghost">Ir a los juegos 🎮</a>
+  </div>
+</div>
+
+<!-- ===== MEMES / CONTEXTUALIZACIÓN ===== -->
+<section id="contexto">
+  <div class="section-label">01 — Contexto</div>
+  <h2 class="section-title reveal">¿Por qué <span>modelar</span> sistemas?</h2>
+  <p style="color:var(--muted);max-width:700px;line-height:1.8;margin-bottom:2rem;" class="reveal">
+    Los sistemas del mundo real son complejos, dinámicos y llenos de bucles de retroalimentación. La Dinámica de Sistemas nos da las herramientas para entenderlos, simularlos y — lo más importante — tomar mejores decisiones antes de que sea demasiado tarde.
+  </p>
+
+  <div class="meme-strip reveal">
+    <div class="meme-card">
+      <div class="meme-img">🤯</div>
+      <div class="meme-caption">
+        <strong>SIN modelo de sistemas</strong>
+        Jefe: "¿por qué colapsó la empresa?"<br>
+        Tú: "...no sé, fue de repente"<br>
+        La realidad: llevaba 3 años colapsando lentamente 💀
+      </div>
+    </div>
+    <div class="meme-card">
+      <div class="meme-img">📈</div>
+      <div class="meme-caption">
+        <strong>CON modelo de Dinámica de Sistemas</strong>
+        Tú: "según mi simulación, si no actuamos ahora, el inventario se agotará en 47 días"<br>
+        Todos: 😱🤝
+      </div>
+    </div>
+    <div class="meme-card">
+      <div class="meme-img">🔄</div>
+      <div class="meme-caption">
+        <strong>Forrester (1961) inventando la DS</strong>
+        "¿Qué tal si... modelamos sistemas industriales como si fueran circuitos eléctricos?"<br>
+        MIT: 💡 *stonks*
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight-box reveal">
+    <p style="font-size:1rem;line-height:1.8;">
+      <strong style="color:var(--accent);">Dinámica de Sistemas (DS)</strong> es una metodología desarrollada por Jay W. Forrester en el MIT en los años 60. Su objetivo es modelar el comportamiento de sistemas complejos en el tiempo, usando variables interconectadas, flujos y bucles de retroalimentación para simular cómo evolucionará un sistema bajo diferentes condiciones.
+    </p>
+  </div>
+
+  <h3 style="font-family:'Bebas Neue';font-size:2rem;margin:3rem 0 1rem;" class="reveal">Ejemplos del mundo real</h3>
+  <table class="styled-table reveal">
+    <thead>
+      <tr>
+        <th>Sistema</th>
+        <th>Variable de Stock</th>
+        <th>Flujo de entrada</th>
+        <th>Flujo de salida</th>
+        <th>Consecuencia</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>🏙️ Ciudad</td><td>Población</td><td>Natalidad</td><td>Mortalidad/Emigración</td><td>Crecimiento o declive urbano</td></tr>
+      <tr><td>🏭 Empresa</td><td>Inventario</td><td>Producción</td><td>Ventas</td><td>Quiebre o exceso de stock</td></tr>
+      <tr><td>🌡️ Ecosistema</td><td>Temperatura global</td><td>Emisiones CO₂</td><td>Absorción forestal</td><td>Cambio climático</td></tr>
+      <tr><td>🦠 Pandemia</td><td>Infectados</td><td>Tasa de contagio</td><td>Recuperación/Muerte</td><td>Curva epidemiológica</td></tr>
+      <tr><td>💰 Banco</td><td>Capital</td><td>Depósitos + intereses</td><td>Préstamos + retiros</td><td>Solvencia o colapso</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ===== CONCEPTOS CLAVE ===== -->
+<section id="conceptos">
+  <div class="section-label">02 — Marco Conceptual</div>
+  <h2 class="section-title reveal">Conceptos <span>Fundamentales</span></h2>
+
+  <div class="concepts-grid">
+    <div class="concept-card reveal">
+      <div class="concept-icon">📦</div>
+      <div class="concept-name">Stock (Nivel)</div>
+      <div class="concept-def">Acumulación de recursos en un punto del tiempo. Es como una bañera: puede llenarse o vaciarse. Ej: número de empleados, litros de agua, capital.</div>
+    </div>
+    <div class="concept-card reveal">
+      <div class="concept-icon">🌊</div>
+      <div class="concept-name">Flow (Flujo)</div>
+      <div class="concept-def">Velocidad a la que cambia un stock. Es el "grifo" de la bañera. Puede ser de entrada (inflow) o salida (outflow). Se mide por unidad de tiempo.</div>
+    </div>
+    <div class="concept-card reveal">
+      <div class="concept-icon">🔄</div>
+      <div class="concept-name">Bucle de Refuerzo (+)</div>
+      <div class="concept-def">Retroalimentación positiva que amplifica el cambio. Crecimiento compuesto, epidemias, redes sociales virales. También llamado bucle R.</div>
+    </div>
+    <div class="concept-card reveal">
+      <div class="concept-icon">⚖️</div>
+      <div class="concept-name">Bucle de Balance (−)</div>
+      <div class="concept-def">Retroalimentación negativa que estabiliza el sistema hacia un objetivo. Termostato, regulación hormonal, control de inventario. También llamado bucle B.</div>
+    </div>
+    <div class="concept-card reveal">
+      <div class="concept-icon">⏳</div>
+      <div class="concept-name">Demora (Delay)</div>
+      <div class="concept-def">El tiempo que tarda una causa en producir su efecto. Las demoras son fuente de oscilaciones y comportamientos inesperados en los sistemas.</div>
+    </div>
+    <div class="concept-card reveal">
+      <div class="concept-icon">🔧</div>
+      <div class="concept-name">Variable Auxiliar</div>
+      <div class="concept-def">Cálculos intermedios que conectan stocks y flujos. Convierten información en decisiones. Ej: precio = costo × margen.</div>
+    </div>
+  </div>
+
+  <div class="highlight-box reveal" style="margin-top:3rem;">
+    <h3 style="font-family:'Bebas Neue';font-size:1.8rem;margin-bottom:1rem;">⚠️ La analogía de la bañera</h3>
+    <p style="line-height:1.8;color:var(--muted);">
+      Imagina una bañera. El <span class="tag-accent">agua dentro = stock</span>. El <span class="tag-accent">grifo abierto = inflow</span>. El <span class="tag-accent">desagüe = outflow</span>. El nivel del agua solo cambia si el grifo y el desagüe no están en equilibrio. Esta lógica aplica a CUALQUIER sistema: empresas, ecosistemas, economías. La Dinámica de Sistemas formaliza esta intuición con matemáticas y ecuaciones diferenciales.
+    </p>
+  </div>
+</section>
+
+<!-- ===== METODOLOGÍA ===== -->
+<section id="metodologia">
+  <div class="section-label">03 — La Metodología</div>
+  <h2 class="section-title reveal">Las <span>6 Fases</span> del Modelado</h2>
+  <p style="color:var(--muted);margin-bottom:3rem;line-height:1.8;" class="reveal">
+    La metodología de Dinámica de Sistemas propuesta por <strong style="color:var(--text);">John Sterman (2000)</strong> en su obra Business Dynamics consta de 6 fases iterativas. No es un proceso lineal — se regresa y refina constantemente.
+  </p>
+
+  <div class="meme-card reveal" style="max-width:500px;margin-bottom:3rem;">
+    <div class="meme-img" style="font-size:4rem;">🧠</div>
+    <div class="meme-caption">
+      <strong>Modelador de DS vs el resto del mundo</strong>
+      Ellos: "el sistema falló de repente"<br>
+      Modelador: "no, mira, ya estaba fallando desde aquí *señala diagrama causal de 2 años atrás*"
+    </div>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-num">FASE 01</div>
+      <div class="timeline-title">Definición del Problema</div>
+      <div class="timeline-desc">
+        Se delimita el sistema a estudiar. Se identifican las <strong>variables de interés</strong> (endógenas y exógenas), el <strong>horizonte temporal</strong> relevante y el <strong>comportamiento problema</strong> que se quiere entender o solucionar. Un buen modelado empieza con una pregunta clara: "¿Por qué el inventario sigue cayendo a pesar de aumentar producción?"
+      </div>
+      <span class="timeline-tag">🎯 Entregable: Enunciado del problema + variables clave</span>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:var(--accent2);box-shadow:0 0 20px var(--accent2);"></div>
+      <div class="timeline-num">FASE 02</div>
+      <div class="timeline-title">Diagrama Causal (CLD)</div>
+      <div class="timeline-desc">
+        Se construye el <strong>Causal Loop Diagram</strong>. Las variables se conectan con flechas indicando la relación: positiva (+) si van en el mismo sentido, negativa (−) si van en sentido inverso. Se identifican bucles R (refuerzo) y B (balance). No hay ecuaciones aún — es conceptual.
+      </div>
+      <span class="timeline-tag">📊 Entregable: Diagrama Causal completo</span>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:var(--accent3);box-shadow:0 0 20px var(--accent3);"></div>
+      <div class="timeline-num">FASE 03</div>
+      <div class="timeline-title">Diagrama de Flujos y Niveles (SFD)</div>
+      <div class="timeline-desc">
+        El CLD se formaliza en un <strong>Stock-and-Flow Diagram</strong>. Ahora se distinguen explícitamente: stocks (rectangles), flows (válvulas/pipes), variables auxiliares (círculos) y constantes. Cada flujo se convierte en una ecuación. Esta es la estructura matemática del modelo.
+      </div>
+      <span class="timeline-tag">🔧 Entregable: Diagrama SFD en software (Vensim / Stella)</span>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:var(--accent4);box-shadow:0 0 20px var(--accent4);"></div>
+      <div class="timeline-num">FASE 04</div>
+      <div class="timeline-title">Parametrización del Modelo</div>
+      <div class="timeline-desc">
+        Se asignan valores numéricos a constantes, condiciones iniciales y funciones. Los parámetros pueden venir de datos históricos, literatura académica o estimaciones expertas. Esta fase determina qué tan "realista" es el modelo.
+      </div>
+      <span class="timeline-tag">📐 Entregable: Tabla de parámetros con justificación</span>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:#00ff88;box-shadow:0 0 20px #00ff88;"></div>
+      <div class="timeline-num">FASE 05</div>
+      <div class="timeline-title">Simulación y Análisis</div>
+      <div class="timeline-desc">
+        Se corre la simulación y se analiza el comportamiento en el tiempo. Se aplican técnicas como <strong>análisis de sensibilidad</strong> (¿qué pasa si cambio un parámetro?) y <strong>escenarios "¿qué pasaría si?"</strong> para entender las dinámicas del sistema.
+      </div>
+      <span class="timeline-tag">💻 Entregable: Gráficas de comportamiento + análisis</span>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:#ff9f1c;box-shadow:0 0 20px #ff9f1c;"></div>
+      <div class="timeline-num">FASE 06</div>
+      <div class="timeline-title">Validación del Modelo</div>
+      <div class="timeline-desc">
+        Se verifica que el modelo reproduzca el comportamiento histórico real y que sea robusto frente a condiciones extremas. Incluye <strong>pruebas de estructura</strong> (¿tiene sentido conceptual?), <strong>pruebas de comportamiento</strong> (¿reproduce patrones reales?) y <strong>análisis de políticas</strong> (¿sirve para tomar decisiones?).
+      </div>
+      <span class="timeline-tag">✅ Entregable: Reporte de validación + recomendaciones</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== JUEGOS ===== -->
+<section id="juegos">
+  <div class="section-label">04 — Aprendizaje Activo</div>
+  <h2 class="section-title reveal">Juegos <span>Interactivos</span></h2>
+
+  <!-- JUEGO 1: Clasificador -->
+  <div class="game-container reveal">
+    <div class="game-title">🎮 Juego 1: Clasificador de Elementos</div>
+    <div class="game-subtitle">Arrastra cada elemento a su categoría correcta. ¡Cuidado, algunas son trampas!</div>
+
+    <div class="draggables" id="draggables">
+      <div class="drag-item" draggable="true" data-type="stock" data-id="d1" ondragstart="dragStart(event)">💧 Agua en represa</div>
+      <div class="drag-item" draggable="true" data-type="flow" data-id="d2" ondragstart="dragStart(event)">🌊 Caudal del río</div>
+      <div class="drag-item" draggable="true" data-type="aux" data-id="d3" ondragstart="dragStart(event)">🧮 Tasa de interés</div>
+      <div class="drag-item" draggable="true" data-type="stock" data-id="d4" ondragstart="dragStart(event)">👥 Empleados totales</div>
+      <div class="drag-item" draggable="true" data-type="flow" data-id="d5" ondragstart="dragStart(event)">📦 Unidades producidas/día</div>
+      <div class="drag-item" draggable="true" data-type="aux" data-id="d6" ondragstart="dragStart(event)">💡 Productividad por empleado</div>
+      <div class="drag-item" draggable="true" data-type="stock" data-id="d7" ondragstart="dragStart(event)">🦠 Infectados activos</div>
+      <div class="drag-item" draggable="true" data-type="flow" data-id="d8" ondragstart="dragStart(event)">💉 Tasa de vacunación diaria</div>
+    </div>
+
+    <div class="classifier-grid">
+      <div class="drop-zone" id="zone-stock" ondragover="allowDrop(event)" ondrop="dropItem(event,'stock')">
+        <h4>📦 STOCK (Nivel) <span style="color:var(--muted)">— Acumulaciones</span></h4>
+        <div id="placed-stock"></div>
+      </div>
+      <div class="drop-zone" id="zone-flow" ondragover="allowDrop(event)" ondrop="dropItem(event,'flow')">
+        <h4>🌊 FLOW (Flujo) <span style="color:var(--muted)">— Tasas de cambio</span></h4>
+        <div id="placed-flow"></div>
+      </div>
+      <div class="drop-zone" id="zone-aux" ondragover="allowDrop(event)" ondrop="dropItem(event,'aux')">
+        <h4>🔧 AUXILIAR <span style="color:var(--muted)">— Variables intermedias</span></h4>
+        <div id="placed-aux"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;align-items:flex-start;justify-content:center;">
+        <button onclick="checkClassifier()" style="background:var(--accent);color:#000;border:none;padding:0.8rem 1.5rem;border-radius:8px;font-family:'Space Mono';font-weight:700;cursor:pointer;font-size:0.85rem;">✅ Verificar</button>
+        <button onclick="resetClassifier()" style="background:transparent;color:var(--muted);border:1px solid var(--border);padding:0.8rem 1.5rem;border-radius:8px;font-family:'Space Mono';cursor:pointer;font-size:0.85rem;">🔄 Reiniciar</button>
+        <div id="classifierScore" style="font-family:'Space Mono';font-size:0.8rem;color:var(--accent);"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JUEGO 2: Bucles -->
+  <div class="game-container reveal" style="margin-top:2rem;">
+    <div class="game-title">🎮 Juego 2: ¿Refuerzo o Balance?</div>
+    <div class="game-subtitle">Identifica qué tipo de bucle de retroalimentación describe cada situación.</div>
+
+    <div id="loopGame">
+      <div class="quiz-question" id="loopQ"></div>
+      <div style="display:flex;gap:1rem;margin-top:1rem;flex-wrap:wrap;">
+        <button onclick="answerLoop('R')" id="btnR" style="flex:1;background:rgba(0,245,212,0.1);border:2px solid var(--accent);color:var(--accent);padding:1rem;border-radius:8px;font-family:'Space Mono';font-size:0.85rem;cursor:pointer;min-width:150px;">🔄 Refuerzo (R+)</button>
+        <button onclick="answerLoop('B')" id="btnB" style="flex:1;background:rgba(247,37,133,0.1);border:2px solid var(--accent2);color:var(--accent2);padding:1rem;border-radius:8px;font-family:'Space Mono';font-size:0.85rem;cursor:pointer;min-width:150px;">⚖️ Balance (B−)</button>
+      </div>
+      <div id="loopFeedback" class="quiz-feedback"></div>
+      <div style="margin-top:1rem;font-family:'Space Mono';font-size:0.8rem;color:var(--muted);">
+        Pregunta <span id="loopCurrent">1</span>/6 — Puntos: <span id="loopPoints" style="color:var(--accent);">0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIMULADOR -->
+  <div class="game-container reveal" style="margin-top:2rem;">
+    <div class="game-title">🎮 Juego 3: Simulador de Población</div>
+    <div class="game-subtitle">Ajusta los parámetros y observa cómo evoluciona el sistema en el tiempo. Experimenta con diferentes escenarios.</div>
+
+    <div class="simulator">
+      <div class="sim-controls">
+        <div class="sim-control">
+          <label>Población inicial (miles)</label>
+          <input type="range" id="popInit" min="10" max="200" value="50" oninput="updateSim()">
+          <div class="val" id="popInitVal">50k</div>
+        </div>
+        <div class="sim-control">
+          <label>Tasa de natalidad (%/año)</label>
+          <input type="range" id="birthRate" min="0" max="5" step="0.1" value="2.5" oninput="updateSim()">
+          <div class="val" id="birthRateVal">2.5%</div>
+        </div>
+        <div class="sim-control">
+          <label>Tasa de mortalidad (%/año)</label>
+          <input type="range" id="deathRate" min="0" max="5" step="0.1" value="1.2" oninput="updateSim()">
+          <div class="val" id="deathRateVal">1.2%</div>
+        </div>
+        <div class="sim-control">
+          <label>Capacidad de carga (miles)</label>
+          <input type="range" id="carryingCap" min="50" max="500" value="200" oninput="updateSim()">
+          <div class="val" id="carryingCapVal">200k</div>
+        </div>
+      </div>
+      <canvas id="simCanvas" width="900" height="200"></canvas>
+      <div class="sim-legend">
+        <div class="sim-leg-item"><div class="sim-leg-dot" style="background:var(--accent)"></div>Población</div>
+        <div class="sim-leg-item"><div class="sim-leg-dot" style="background:var(--accent2)"></div>Capacidad de carga</div>
+        <div class="sim-leg-item"><div class="sim-leg-dot" style="background:var(--accent3)"></div>Tasa neta de crecimiento</div>
+      </div>
+      <div id="simInsight" style="margin-top:1rem;padding:1rem;background:rgba(0,0,0,0.3);border-radius:8px;font-size:0.85rem;color:var(--muted);"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== QUIZ ===== -->
+<section id="quiz">
+  <div class="section-label">05 — Evaluación</div>
+  <h2 class="section-title reveal">Quiz <span>Final</span></h2>
+  <p style="color:var(--muted);margin-bottom:2rem;" class="reveal">10 preguntas sobre los conceptos y la metodología. Necesitas 7/10 para aprobar. ¡Tú puedes!</p>
+
+  <div class="scoreboard reveal" id="quizScoreboard">
+    <div class="score-item">
+      <div class="score-num" id="qScore">0</div>
+      <div class="score-label">Puntos</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num" id="qCorrect">0</div>
+      <div class="score-label">Correctas</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num" id="qTotal">0</div>
+      <div class="score-label">Respondidas</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num" id="qPct">0%</div>
+      <div class="score-label">Porcentaje</div>
+    </div>
+  </div>
+
+  <div id="quizContainer" style="margin-top:2rem;"></div>
+  <div id="quizResult" style="display:none;text-align:center;padding:3rem;background:var(--card);border-radius:16px;margin-top:2rem;">
+    <div style="font-size:4rem;margin-bottom:1rem;" id="quizResultEmoji">🎉</div>
+    <div style="font-family:'Bebas Neue';font-size:3rem;margin-bottom:0.5rem;" id="quizResultTitle">¡Excelente!</div>
+    <div style="color:var(--muted);font-size:1rem;" id="quizResultDesc"></div>
+    <button onclick="resetQuiz()" style="margin-top:2rem;background:var(--accent);color:#000;border:none;padding:1rem 2rem;border-radius:8px;font-family:'Space Mono';font-weight:700;cursor:pointer;">🔄 Intentar de nuevo</button>
+  </div>
+</section>
+
+<!-- ===== VIDEOS ===== -->
+<section id="videos">
+  <div class="section-label">06 — Recursos Multimedia</div>
+  <h2 class="section-title reveal">Videos <span>Recomendados</span></h2>
+
+  <div class="video-grid reveal">
+    <div class="video-card">
+      <a class="video-thumb" href="https://www.youtube.com/watch?v=o-Yp8A7BPE8" target="_blank" style="background:rgba(0,245,212,0.1);">
+        🎬
+      </a>
+      <div class="video-info">
+        <div class="video-title">Introducción a la Dinámica de Sistemas</div>
+        <div class="video-desc">Conceptos fundamentales de stocks, flows y bucles de retroalimentación explicados visualmente. Ideal para empezar.</div>
+      </div>
+    </div>
+    <div class="video-card">
+      <a class="video-thumb" href="https://www.youtube.com/watch?v=AnTwZVviXyY" target="_blank" style="background:rgba(247,37,133,0.1);">
+        📊
+      </a>
+      <div class="video-info">
+        <div class="video-title">Diagramas Causales: Cómo construirlos</div>
+        <div class="video-desc">Paso a paso para crear un CLD (Causal Loop Diagram) desde cero. Con ejemplos reales de sistemas empresariales.</div>
+      </div>
+    </div>
+    <div class="video-card">
+      <a class="video-thumb" href="https://www.youtube.com/results?search_query=vensim+tutorial+español" target="_blank" style="background:rgba(114,9,183,0.1);">
+        💻
+      </a>
+      <div class="video-info">
+        <div class="video-title">Tutorial Vensim PLE — Modelado práctico</div>
+        <div class="video-desc">Introducción al software Vensim para construir modelos de Dinámica de Sistemas. Software gratuito para educación.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REFERENCIAS ===== -->
+<section id="referencias">
+  <div class="section-label">07 — Bibliografía</div>
+  <h2 class="section-title reveal">Referencias <span>Académicas</span></h2>
+
+  <div class="ref-card reveal"><strong>Sterman, J. D. (2000).</strong> Business Dynamics: Systems Thinking and Modeling for a Complex World. Irwin/McGraw-Hill. ISBN: 978-0-07-231135-8. [Referencia principal de la metodología]</div>
+  <div class="ref-card reveal"><strong>Forrester, J. W. (1961).</strong> Industrial Dynamics. MIT Press. Cambridge, MA. [Obra fundacional de la Dinámica de Sistemas]</div>
+  <div class="ref-card reveal"><strong>Meadows, D. H. (2008).</strong> Thinking in Systems: A Primer. Chelsea Green Publishing. White River Junction, VT. ISBN: 978-1-60358-055-7.</div>
+  <div class="ref-card reveal"><strong>Ford, A. (2009).</strong> Modeling the Environment (2nd ed.). Island Press. Washington, D.C. [Aplicaciones ambientales de DS]</div>
+  <div class="ref-card reveal"><strong>Vensim® PLE Software.</strong> Ventana Systems Inc. (2024). Recuperado de https://vensim.com/vensim-personal-learning-edition/</div>
+  <div class="ref-card reveal"><strong>García, J. M. (2019).</strong> Teoría y Ejercicios Prácticos de Dinámica de Sistemas. Departamento de Ingeniería de Sistemas. Universidad Politécnica de Cataluña.</div>
+</section>
+
+<!-- ===== CREDITS ===== -->
+<div class="credits" id="creditos">
+  <div class="credits-logo">OVA #18 — DINÁMICA DE SISTEMAS</div>
+  <div class="credits-info">
+    <strong style="color:var(--text);">Pedro José Velaides Marciales</strong><br>
+    Teoría General de Sistemas — Universidad Simón Bolívar, Cúcuta<br>
+    Semestre 2025-II<br><br>
+    <span style="color:var(--accent);">Herramientas utilizadas:</span> HTML5 · CSS3 · JavaScript · Claude AI<br><br>
+    <em style="font-size:0.75rem;">"Todo modelo es incorrecto, pero algunos son útiles." — George Box</em>
+  </div>
+</div>
+
+<script>
+// ===== PROGRESS BAR =====
+window.addEventListener('scroll', () => {
+  const winHeight = document.body.scrollHeight - window.innerHeight;
+  document.getElementById('progressBar').style.width = (window.scrollY / winHeight * 100) + '%';
+});
+
+// ===== SCROLL REVEAL =====
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add('visible'); }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
+
+// ===== NOTIFICATION =====
+function showNotif(msg){
+  const n = document.getElementById('notif');
+  document.getElementById('notifMsg').textContent = msg;
+  n.classList.add('show');
+  setTimeout(() => n.classList.remove('show'), 3000);
+}
+setTimeout(() => showNotif('¡Bienvenido a la OVA! 🚀 Empieza por arriba'), 1500);
+
+// ===== DRAG & DROP GAME =====
+let draggedId = null;
+
+function dragStart(e){
+  draggedId = e.target.dataset.id;
+  e.dataTransfer.setData('text/plain', e.target.dataset.id);
+}
+
+function allowDrop(e){ e.preventDefault(); e.currentTarget.classList.add('highlight'); }
+
+const placements = {};
+
+function dropItem(e, zoneType){
+  e.preventDefault();
+  e.currentTarget.classList.remove('highlight');
+  const el = document.querySelector(`[data-id="${draggedId}"]`);
+  if(!el || el.classList.contains('placed')) return;
+  el.classList.add('placed');
+  placements[draggedId] = zoneType;
+  const placed = document.getElementById(`placed-${zoneType}`);
+  const tag = document.createElement('span');
+  tag.className = 'placed-item';
+  tag.textContent = el.textContent;
+  tag.dataset.id = draggedId;
+  tag.onclick = () => removeFromZone(draggedId, zoneType, tag, el);
+  placed.appendChild(tag);
+}
+
+function removeFromZone(id, zone, tag, original){
+  delete placements[id];
+  tag.remove();
+  original.classList.remove('placed');
+}
+
+document.querySelectorAll('.drop-zone').forEach(z => {
+  z.addEventListener('dragleave', () => z.classList.remove('highlight'));
+});
+
+function checkClassifier(){
+  let correct = 0;
+  let total = Object.keys(placements).length;
+  if(total === 0){ showNotif('⚠️ Arrastra algunos elementos primero'); return; }
+  for(const [id, placed] of Object.entries(placements)){
+    const el = document.querySelector(`[data-id="${id}"]`);
+    const correct_type = el.dataset.type;
+    if(placed === correct_type) correct++;
+  }
+  const pct = Math.round(correct/total*100);
+  document.getElementById('classifierScore').textContent = `✅ ${correct}/${total} correctos (${pct}%)`;
+  showNotif(`${correct === total ? '🎉 ¡Perfecto!' : pct >= 70 ? '👍 ¡Bien!' : '💪 Sigue intentando'} ${correct}/${total}`);
+}
+
+function resetClassifier(){
+  placements = {};
+  document.getElementById('placed-stock').innerHTML = '';
+  document.getElementById('placed-flow').innerHTML = '';
+  document.getElementById('placed-aux').innerHTML = '';
+  document.querySelectorAll('.drag-item').forEach(d => d.classList.remove('placed'));
+  document.getElementById('classifierScore').textContent = '';
+}
+
+// ===== LOOP GAME =====
+const loopQuestions = [
+  { q:"💰 Más capital → más inversión → más rendimientos → más capital...", answer:"R", exp:"Crecimiento compuesto: bucle de Refuerzo. Cada aumento genera más aumento (interés compuesto)." },
+  { q:"🌡️ El termostato detecta frío → enciende calefacción → sube temperatura → termostato lo detecta y apaga", answer:"B", exp:"Regulación hacia un objetivo: bucle de Balance. La temperatura converge al set-point." },
+  { q:"🦠 Más infectados → más contagios → más infectados (sin inmunidad ni vacuna)", answer:"R", exp:"Crecimiento exponencial de epidemia: bucle de Refuerzo. La pandemia se amplifica a sí misma." },
+  { q:"📦 Inventario bajo el objetivo → más producción → inventario sube → menos presión para producir", answer:"B", exp:"Control de inventario: bucle de Balance. El sistema converge al nivel deseado de stock." },
+  { q:"📱 Más usuarios → más valor de la red → más usuarios se unen...", answer:"R", exp:"Efecto de red (Network Effect): bucle de Refuerzo clásico de plataformas digitales como TikTok o Instagram." },
+  { q:"🐰 Más presas → más depredadores pueden sobrevivir → más presas se cazan → menos presas", answer:"B", exp:"Predador-presa: bucle de Balance. Los depredadores regulan la población de presas (y viceversa en el bucle inverso)." },
+];
+
+let loopIdx = 0, loopScore = 0;
+
+function loadLoopQ(){
+  if(loopIdx >= loopQuestions.length){
+    document.getElementById('loopQ').innerHTML = `<div style="font-size:2rem;text-align:center;">🏁 ¡Terminaste! Puntos: ${loopScore}/${loopQuestions.length}</div>`;
+    document.getElementById('btnR').style.display='none';
+    document.getElementById('btnB').style.display='none';
+    showNotif(`${loopScore >= 5 ? '🎉 ¡Excelente!' : '💪 Sigue practicando'} — ${loopScore}/${loopQuestions.length} en Bucles`);
+    return;
+  }
+  document.getElementById('loopQ').innerHTML = `<div class="quiz-q-text" style="font-size:1.1rem;">${loopQuestions[loopIdx].q}</div>`;
+  document.getElementById('loopFeedback').className = 'quiz-feedback';
+  document.getElementById('loopFeedback').innerHTML = '';
+  document.getElementById('btnR').disabled = false;
+  document.getElementById('btnB').disabled = false;
+  document.getElementById('loopCurrent').textContent = loopIdx + 1;
+}
+
+function answerLoop(ans){
+  const q = loopQuestions[loopIdx];
+  const fb = document.getElementById('loopFeedback');
+  document.getElementById('btnR').disabled = true;
+  document.getElementById('btnB').disabled = true;
+  if(ans === q.answer){
+    loopScore++;
+    fb.className = 'quiz-feedback correct-fb show';
+    fb.innerHTML = `✅ ¡Correcto! ${q.exp}`;
+    showNotif('✅ ¡Correcto! +1 punto');
+  } else {
+    fb.className = 'quiz-feedback wrong-fb show';
+    fb.innerHTML = `❌ Incorrecto. ${q.exp}`;
+  }
+  document.getElementById('loopPoints').textContent = loopScore;
+  loopIdx++;
+  setTimeout(loadLoopQ, 2500);
+}
+
+loadLoopQ();
+
+// ===== SIMULADOR =====
+function updateSim(){
+  const popInit = +document.getElementById('popInit').value;
+  const br = +document.getElementById('birthRate').value / 100;
+  const dr = +document.getElementById('deathRate').value / 100;
+  const cap = +document.getElementById('carryingCap').value;
+
+  document.getElementById('popInitVal').textContent = popInit + 'k';
+  document.getElementById('birthRateVal').textContent = (+document.getElementById('birthRate').value).toFixed(1) + '%';
+  document.getElementById('deathRateVal').textContent = (+document.getElementById('deathRate').value).toFixed(1) + '%';
+  document.getElementById('carryingCapVal').textContent = cap + 'k';
+
+  const canvas = document.getElementById('simCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.offsetWidth || 900;
+  const H = canvas.height;
+  canvas.width = W;
+  ctx.clearRect(0,0,W,H);
+
+  const years = 50;
+  const data = [];
+  let pop = popInit;
+  for(let t = 0; t <= years; t++){
+    const netRate = (br - dr) * (1 - pop/cap);
+    pop = Math.max(0, pop + pop * netRate);
+    data.push(pop);
+  }
+
+  const maxVal = Math.max(...data, cap) * 1.1;
+  const pad = 30;
+
+  // Grid lines
+  ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+  ctx.lineWidth = 1;
+  for(let i = 0; i <= 5; i++){
+    const y = pad + (H - 2*pad) * i / 5;
+    ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(W-pad, y); ctx.stroke();
+  }
+
+  // Carrying capacity line
+  const capY = pad + (H-2*pad)*(1 - cap/maxVal);
+  ctx.strokeStyle = 'rgba(247,37,133,0.5)';
+  ctx.lineWidth = 2;
+  ctx.setLineDash([6,4]);
+  ctx.beginPath(); ctx.moveTo(pad, capY); ctx.lineTo(W-pad, capY); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Population curve
+  ctx.strokeStyle = '#00f5d4';
+  ctx.lineWidth = 3;
+  ctx.shadowColor = '#00f5d4';
+  ctx.shadowBlur = 8;
+  ctx.beginPath();
+  data.forEach((v, i) => {
+    const x = pad + (W-2*pad)*i/years;
+    const y = pad + (H-2*pad)*(1 - v/maxVal);
+    i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+
+  // Labels
+  ctx.fillStyle = 'rgba(0,245,212,0.6)';
+  ctx.font = '11px Space Mono, monospace';
+  ctx.fillText('Cap: ' + cap + 'k', W-pad-60, capY - 6);
+  ctx.fillText('Pop final: ' + Math.round(data[years]) + 'k', pad+4, pad+16);
+
+  // Insight
+  const final = Math.round(data[years]);
+  const insight = document.getElementById('simInsight');
+  const netGrowth = ((br - dr)*100).toFixed(2);
+  if(br <= dr) insight.innerHTML = `⚠️ Tasa de mortalidad ≥ natalidad. La población <strong style="color:var(--accent2)">decrece</strong> hasta extinguirse.`;
+  else if(final >= cap * 0.95) insight.innerHTML = `📊 La población converge a la capacidad de carga (${cap}k). <strong style="color:var(--accent)">Bucle de balance</strong> dominante: crecimiento logístico.`;
+  else insight.innerHTML = `📈 Tasa de crecimiento neta inicial: <strong style="color:var(--accent3)">${netGrowth}%</strong>. La población crecerá hacia ${cap}k con un <strong style="color:var(--accent)">bucle de refuerzo</strong> que se frena al acercarse a la capacidad de carga.`;
+}
+updateSim();
+window.addEventListener('resize', updateSim);
+
+// ===== FINAL QUIZ =====
+const quizData = [
+  { q:"¿Quién desarrolló la Dinámica de Sistemas en el MIT?", opts:["Ludwig von Bertalanffy","Jay W. Forrester","John Sterman","Norbert Wiener"], a:1, exp:"Jay W. Forrester la desarrolló en el MIT alrededor de 1961 con su obra Industrial Dynamics." },
+  { q:"¿Qué es un STOCK en Dinámica de Sistemas?", opts:["Una tasa de cambio por unidad de tiempo","Una acumulación de recursos en un punto del tiempo","Una retroalimentación negativa","Un parámetro constante del modelo"], a:1, exp:"Un stock es una acumulación — representa el estado actual del sistema (inventario, población, capital)." },
+  { q:"¿Cuántas fases tiene la metodología de Sterman para crear modelos DS?", opts:["4","5","6","8"], a:2, exp:"La metodología de Sterman tiene 6 fases: definición, diagrama causal, SFD, parametrización, simulación y validación." },
+  { q:"Un bucle de retroalimentación POSITIVO (R) se caracteriza por:", opts:["Estabilizar el sistema hacia un objetivo","Amplificar los cambios — genera crecimiento o colapso exponencial","Reducir las oscilaciones del sistema","Mantener el equilibrio entre flujos"], a:1, exp:"Un bucle R (refuerzo) amplifica el cambio: más genera más. Ej: crecimiento compuesto, epidemia sin control." },
+  { q:"¿Cuál es la primera fase de la metodología de modelado DS?", opts:["Construcción del diagrama causal","Simulación y análisis","Definición del problema","Parametrización del modelo"], a:2, exp:"La primera fase siempre es la definición del problema: delimitar el sistema, variables de interés y horizonte temporal." },
+  { q:"¿Qué es un CLD en la metodología DS?", opts:["Causal Loop Diagram — diagrama de relaciones causales","Complex Linear Dynamics — modelo matemático avanzado","Control Loop Data — datos de simulación","Continuous Level Diagram — gráfica de stocks"], a:0, exp:"CLD = Causal Loop Diagram. Muestra las relaciones causales entre variables con flechas + o − y los bucles R/B." },
+  { q:"¿Qué problema introduce la DEMORA (delay) en los sistemas?", opts:["Hace el modelo más rápido de simular","Elimina los bucles de retroalimentación","Puede causar oscilaciones y comportamientos contraintuitivos","Convierte flujos en stocks automáticamente"], a:2, exp:"Las demoras hacen que causa y efecto estén separados en el tiempo, generando oscilaciones y sorpresas en el comportamiento del sistema." },
+  { q:"¿Qué fase valida que el modelo reproduce el comportamiento histórico real?", opts:["Fase 1 — Definición del problema","Fase 3 — Diagrama de Flujos","Fase 5 — Simulación","Fase 6 — Validación del modelo"], a:3, exp:"La Fase 6 (Validación) verifica que el modelo tiene sentido conceptual y reproduce patrones reales observados históricamente." },
+  { q:"Un termostato que apaga la calefacción cuando la temperatura supera el set-point es un ejemplo de:", opts:["Bucle de Refuerzo (R+)","Bucle de Balance (B−)","Demora de información","Variable auxiliar"], a:1, exp:"Es un bucle de Balance: el sistema busca un objetivo (temperatura deseada) y usa retroalimentación negativa para alcanzarlo." },
+  { q:"¿Cuál es la diferencia entre un FLOW (flujo) y una variable AUXILIAR?", opts:["No hay diferencia, son sinónimos","El flujo cambia directamente el stock; la auxiliar es un cálculo intermedio","La auxiliar cambia el stock; el flujo es una constante","El flujo es cualitativo; la auxiliar es cuantitativa"], a:1, exp:"Los flows modifican directamente los stocks. Las variables auxiliares son cálculos intermedios que ayudan a determinar los flujos pero no cambian stocks directamente." },
+];
+
+let qIdx = 0, qScore = 0, qCorrect = 0;
+
+function buildQuiz(){
+  const cont = document.getElementById('quizContainer');
+  cont.innerHTML = '';
+  quizData.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'quiz-question reveal';
+    div.innerHTML = `
+      <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:0.8rem;">
+        <span style="font-family:'Space Mono';font-size:0.7rem;color:var(--accent);background:rgba(0,245,212,0.1);padding:0.2rem 0.6rem;border-radius:4px;">P.${i+1}</span>
+        <span style="color:var(--muted);font-size:0.75rem;font-family:'Space Mono';">10 puntos</span>
+      </div>
+      <div class="quiz-q-text">${q.q}</div>
+      <div class="quiz-options">
+        ${q.opts.map((opt,j) => `<button class="quiz-opt" onclick="answerQuiz(${i},${j},this)" id="qopt-${i}-${j}">${opt}</button>`).join('')}
+      </div>
+      <div class="quiz-feedback" id="qfb-${i}"></div>
+    `;
+    cont.appendChild(div);
+  });
+  setTimeout(() => document.querySelectorAll('.quiz-question.reveal').forEach(e => observer.observe(e)), 100);
+}
+
+function answerQuiz(qIdx, optIdx, btn){
+  const q = quizData[qIdx];
+  // disable all options for this question
+  for(let j=0;j<q.opts.length;j++){
+    const b = document.getElementById(`qopt-${qIdx}-${j}`);
+    b.disabled = true;
+    if(j === q.a) b.classList.add('correct');
+    else if(j === optIdx && optIdx !== q.a) b.classList.add('wrong');
+  }
+  const fb = document.getElementById(`qfb-${qIdx}`);
+  const isCorrect = optIdx === q.a;
+  if(isCorrect){ qScore += 10; qCorrect++; fb.className='quiz-feedback correct-fb show'; fb.innerHTML = `✅ ¡Correcto! ${q.exp}`; }
+  else { fb.className='quiz-feedback wrong-fb show'; fb.innerHTML = `❌ Respuesta: "${q.opts[q.a]}". ${q.exp}`; }
+
+  // count answered
+  const answered = document.querySelectorAll('.quiz-opt:disabled[id^="qopt-"]').length / 4;
+  document.getElementById('qScore').textContent = qScore;
+  document.getElementById('qCorrect').textContent = qCorrect;
+  document.getElementById('qTotal').textContent = Math.ceil(answered);
+  document.getElementById('qPct').textContent = Math.round(qCorrect/quizData.length*100) + '%';
+
+  if(qCorrect + (Math.ceil(answered) - qCorrect) === quizData.length && Math.ceil(answered) === quizData.length){
+    showResult();
+  }
+}
+
+function showResult(){
+  const pct = Math.round(qCorrect/quizData.length*100);
+  document.getElementById('quizResult').style.display = 'block';
+  if(pct >= 90){ document.getElementById('quizResultEmoji').textContent='🏆'; document.getElementById('quizResultTitle').textContent='¡Maestro de DS!'; }
+  else if(pct >= 70){ document.getElementById('quizResultEmoji').textContent='🎉'; document.getElementById('quizResultTitle').textContent='¡Aprobado!'; }
+  else { document.getElementById('quizResultEmoji').textContent='💪'; document.getElementById('quizResultTitle').textContent='Sigue practicando'; }
+  document.getElementById('quizResultDesc').textContent = `Obtuviste ${qCorrect}/10 respuestas correctas (${pct}%). Puntuación total: ${qScore}/100.`;
+  document.getElementById('quizResult').scrollIntoView({behavior:'smooth'});
+}
+
+function resetQuiz(){
+  qScore = 0; qCorrect = 0;
+  document.getElementById('qScore').textContent = 0;
+  document.getElementById('qCorrect').textContent = 0;
+  document.getElementById('qTotal').textContent = 0;
+  document.getElementById('qPct').textContent = '0%';
+  document.getElementById('quizResult').style.display = 'none';
+  buildQuiz();
+}
+
+buildQuiz();
+
+// Mobile drag support (touch)
+let touchDragged = null;
+document.querySelectorAll('.drag-item').forEach(item => {
+  item.addEventListener('touchstart', e => { touchDragged = item; item.style.opacity='0.5'; }, {passive:true});
+  item.addEventListener('touchend', e => {
+    if(!touchDragged) return;
+    const touch = e.changedTouches[0];
+    const el = document.elementFromPoint(touch.clientX, touch.clientY);
+    const zone = el?.closest('.drop-zone');
+    if(zone){
+      const zoneType = zone.id.replace('zone-','');
+      if(!touchDragged.classList.contains('placed')){
+        touchDragged.classList.add('placed');
+        placements[touchDragged.dataset.id] = zoneType;
+        const placed = document.getElementById(`placed-${zoneType}`);
+        const tag = document.createElement('span');
+        tag.className = 'placed-item';
+        tag.textContent = touchDragged.textContent;
+        tag.dataset.id = touchDragged.dataset.id;
+        const orig = touchDragged;
+        tag.onclick = () => { delete placements[orig.dataset.id]; tag.remove(); orig.classList.remove('placed'); orig.style.opacity='1'; };
+        placed.appendChild(tag);
+      }
+    }
+    touchDragged.style.opacity = touchDragged.classList.contains('placed') ? '0.4' : '1';
+    touchDragged = null;
+  }, {passive:true});
+});
+
+// Fix placements reference
+let placements_obj = {};
+</script>
+</body>
+</html>
