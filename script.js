@@ -15,7 +15,7 @@ const ovas = [
     num: 3,
     topic: "Definiciones formales (entrada, proceso, salida y retroalimentación)",
     author: "Jhon Alexander Arévalo Ropero",
-    link: null
+    link: "ovas/OVA_Jhon_Alexander/index.html"
   },
   {
     num: 4,
