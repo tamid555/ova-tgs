@@ -99,13 +99,13 @@ const ovas = [
     num: 17,
     topic: "Disciplina y organizaciones inteligentes",
     author: "Dexly Jolianne Vargas Mantilla",
-    link: null
+    link: "https://dexjolvarman13-art.github.io/OVA_Dexly/"
   },
   {
     num: 18,
     topic: "Metodología para la creación de modelos en Dinámica de Sistemas",
     author: "Pedro José Velaides Marciales",
-    link: null
+    link: "ovas/OVA_Pedro_Velaides/OVA18_Dinamica_Sistemas.html"
   }
 ];
 
