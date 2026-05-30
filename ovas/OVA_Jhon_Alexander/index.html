@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Objeto Virtual de Aprendizaje (OVA) interactivo sobre la Teoría General de Sistemas (TGS). Aprende de forma interactiva sobre Entrada, Proceso, Salida y Retroalimentación con juegos y simuladores.">
+    <title>OVA: Teoría General de Sistemas - Entrada, Proceso, Salida y Retroalimentación</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Estilos Principales -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Partículas / Fondo dinámico decorativo -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-glow bg-glow-3"></div>
+
+    <div class="app-container">
+        <!-- Sidebar de Navegación -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>TGS-OVA</h1>
+                    <span>Dinámica de Sistemas</span>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#bienvenida" class="nav-item active" data-tab="bienvenida">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                        <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                    <span>Bienvenida</span>
+                </a>
+                <a href="#conceptos" class="nav-item" data-tab="conceptos">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon">
+                        <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12A10 10 0 0 1 12 2z"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                    <span>Conceptos Clave</span>
+                </a>
+                <a href="#casos" class="nav-item" data-tab="casos">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                    </svg>
+                    <span>Casos Prácticos</span>
+                </a>
+                <a href="#constructor" class="nav-item" data-tab="constructor">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon">
+                        <polyline points="16 16 12 12 8 16"/>
+                        <line x1="12" y1="12" x2="12" y2="21"/>
+                        <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/>
+                        <polyline points="16 16 12 12 8 16"/>
+                    </svg>
+                    <span>Juego 1: Architect</span>
+                </a>
+                <a href="#simulador" class="nav-item" data-tab="simulador">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon">
+                        <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/>
+                        <path d="M22 12A10 10 0 0 0 12 2v10z"/>
+                    </svg>
+                    <span>Juego 2: Lab Control</span>
+                </a>
+                <a href="#videos" class="nav-item" data-tab="videos">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon">
+                        <polygon points="23 7 16 12 23 17 23 7"/>
+                        <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                    </svg>
+                    <span>Multimedia</span>
+                </a>
+                <a href="#evaluacion" class="nav-item" data-tab="evaluacion">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10 9 9 9 8 9"/>
+                    </svg>
+                    <span>Evaluación</span>
+                </a>
+                <a href="#creditos" class="nav-item" data-tab="creditos">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                    <span>Créditos</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <span class="version">Versión 1.0.0</span>
+                <span class="copyright">© 2026 TGS OVA</span>
+            </div>
+        </aside>
+
+        <!-- Contenido Principal -->
+        <main class="main-content">
+            <!-- Header Móvil -->
+            <header class="mobile-header">
+                <button class="menu-toggle" id="menuToggleBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <line x1="3" y1="18" x2="21" y2="18"/>
+                    </svg>
+                </button>
+                <div class="mobile-logo">
+                    <h2>TGS OVA</h2>
+                </div>
+                <div style="width: 24px;"></div> <!-- Spacer para balancear -->
+            </header>
+
+            <!-- Sección: Bienvenida -->
+            <section id="bienvenida" class="tab-content active">
+                <div class="hero-card">
+                    <div class="hero-badge">Teoría General de Sistemas</div>
+                    <h2 class="hero-title">Definiciones Formales</h2>
+                    <p class="hero-subtitle">Explora la anatomía dinámica de los sistemas complejos a través del estudio de la Entrada, Proceso, Salida y Retroalimentación.</p>
+                    
+                    <!-- Diagrama de Sistema Interactivo SVG -->
+                    <div class="interactive-diagram-container">
+                        <svg id="mainSystemDiagram" viewBox="0 0 800 300" class="main-diagram-svg">
+                            <!-- Definición de Gradientes y Marcadores -->
+                            <defs>
+                                <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="hsl(180, 100%, 60%)" />
+                                    <stop offset="100%" stop-color="hsl(180, 100%, 40%)" />
+                                </linearGradient>
+                                <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="hsl(270, 95%, 70%)" />
+                                    <stop offset="100%" stop-color="hsl(270, 90%, 50%)" />
+                                </linearGradient>
+                                <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="hsl(145, 90%, 60%)" />
+                                    <stop offset="100%" stop-color="hsl(145, 80%, 40%)" />
+                                </linearGradient>
+                                <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="hsl(20, 95%, 65%)" />
+                                    <stop offset="100%" stop-color="hsl(20, 95%, 45%)" />
+                                </linearGradient>
+                                <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#718096" />
+                                </marker>
+                                <marker id="arrow-coral" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                    <path d="M 0 0 L 10 5 L 0 10 z" fill="hsl(20, 95%, 55%)" />
+                                </marker>
+                            </defs>
+
+                            <!-- Línea de Conexión: Entrada a Proceso -->
+                            <line x1="180" y1="120" x2="310" y2="120" stroke="hsl(180, 100%, 50%)" stroke-width="3" stroke-dasharray="6, 4" class="anim-dash-fast"/>
+                            
+                            <!-- Línea de Conexión: Proceso a Salida -->
+                            <line x1="490" y1="120" x2="620" y2="120" stroke="hsl(145, 80%, 50%)" stroke-width="3" stroke-dasharray="6, 4" class="anim-dash-fast"/>
+
+                            <!-- Lazo de Retroalimentación -->
+                            <path d="M 680 160 L 680 230 L 120 230 L 120 160" fill="none" stroke="hsl(20, 95%, 55%)" stroke-width="3" stroke-dasharray="8, 4" class="anim-dash-feedback" marker-end="url(#arrow-coral)"/>
+
+                            <!-- Nodo: Entrada -->
+                            <g class="diagram-node node-input" id="nodeInput">
+                                <circle cx="120" cy="120" r="55" fill="url(#cyanGrad)" filter="url(#glow)"/>
+                                <text x="120" y="115" class="node-title">ENTRADA</text>
+                                <text x="120" y="135" class="node-desc">(Input)</text>
+                            </g>
+
+                            <!-- Nodo: Proceso (Caja Negra) -->
+                            <g class="diagram-node node-process" id="nodeProcess">
+                                <rect x="310" y="65" width="180" height="110" rx="15" fill="url(#purpleGrad)" class="glow-purple"/>
+                                <text x="400" y="115" class="node-title">PROCESO</text>
+                                <text x="400" y="135" class="node-desc">(Transformación)</text>
+                            </g>
+
+                            <!-- Nodo: Salida -->
+                            <g class="diagram-node node-output" id="nodeOutput">
+                                <circle cx="680" cy="120" r="55" fill="url(#greenGrad)"/>
+                                <text x="680" y="115" class="node-title">SALIDA</text>
+                                <text x="680" y="135" class="node-desc">(Output)</text>
+                            </g>
+
+                            <!-- Etiqueta Retroalimentación -->
+                            <rect x="320" y="215" width="160" height="30" rx="8" fill="hsl(220, 25%, 12%)" stroke="hsl(20, 95%, 55%)" stroke-width="1.5"/>
+                            <text x="400" y="235" class="node-feedback-text">RETROALIMENTACIÓN</text>
+                        </svg>
+                        <div class="diagram-hint">Haz clic sobre cualquier elemento del diagrama para ver su rol en el sistema.</div>
+                    </div>
+                </div>
+
+                <!-- Info Modal / Detalle dinámico del diagrama -->
+                <div class="diagram-detail-card id-card-hidden" id="diagramDetailCard">
+                    <button class="close-card-btn" id="closeDetailCardBtn">&times;</button>
+                    <div class="card-detail-content">
+                        <h4 class="card-detail-title" id="detailTitle">Detalle</h4>
+                        <p class="card-detail-text" id="detailDescription">Selecciona un elemento.</p>
+                        <div class="detail-tags" id="detailTags"></div>
+                    </div>
+                </div>
+
+                <!-- Tarjetas de Justificación -->
+                <div class="section-title-wrap">
+                    <h3 class="section-title">¿Por qué estudiar esto?</h3>
+                    <div class="title-underline"></div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="info-card glow-card">
+                        <div class="info-card-icon text-cyan">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                        </div>
+                        <h3>Comprensión Holística</h3>
+                        <p>Los sistemas no son solo un conjunto de partes estáticas. Analizar sus entradas, procesos, salidas y retroalimentaciones nos permite modelar la realidad de forma dinámica, desde el comportamiento de una pequeña bacteria hasta la complejidad de los mercados económicos mundiales.</p>
+                    </div>
+
+                    <div class="info-card glow-card">
+                        <div class="info-card-icon text-coral">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 2a7.5 7.5 0 0 0 0 15 7.5 7.5 0 0 1 0 5"/>
+                            </svg>
+                        </div>
+                        <h3>Ingeniería y Control</h3>
+                        <p>Sin retroalimentación, un sistema opera a ciegas (lazo abierto). El diseño de sistemas inteligentes modernos, la automatización, la Inteligencia Artificial y la supervivencia misma de la vida (homeostasis) dependen de la capacidad de ajustar procesos en función de sus propios resultados.</p>
+                    </div>
+                </div>
+
+                <div class="quote-container">
+                    <blockquote>
+                        "Un sistema es un conjunto de elementos en interacción recíproca. El todo es más que la suma de sus partes."
+                    </blockquote>
+                    <cite>— Karl Ludwig von Bertalanffy, Fundador de la Teoría General de Sistemas</cite>
+                </div>
+            </section>
+
+            <!-- Sección: Conceptos Clave -->
+            <section id="conceptos" class="tab-content">
+                <div class="section-title-wrap">
+                    <span class="subtitle-tag">Marco Teórico</span>
+                    <h2 class="section-title">Los 4 Pilares del Análisis de Sistemas</h2>
+                    <div class="title-underline"></div>
+                </div>
+
+                <!-- Navegador de Conceptos (Sub-tabs verticales/horizontales) -->
+                <div class="concept-tabs">
+                    <button class="c-tab-btn active" data-concept="input">
+                        <span class="indicator cyan"></span> Entrada (Input)
+                    </button>
+                    <button class="c-tab-btn" data-concept="process">
+                        <span class="indicator purple"></span> Proceso (Process)
+                    </button>
+                    <button class="c-tab-btn" data-concept="output">
+                        <span class="indicator green"></span> Salida (Output)
+                    </button>
+                    <button class="c-tab-btn" data-concept="feedback">
+                        <span class="indicator coral"></span> Retroalimentación
+                    </button>
+                </div>
+
+                <!-- Paneles de Conceptos -->
+                <div class="concept-panels-container">
+                    <!-- Entrada -->
+                    <div class="concept-panel active" id="c-input">
+                        <div class="concept-layout">
+                            <div class="concept-info">
+                                <h3 class="concept-heading text-cyan">Definición Formal de la Entrada</h3>
+                                <p class="concept-p">Es la fuerza de arranque o importación que proporciona al sistema la materia, energía o información necesaria para su operación y mantenimiento.</p>
+                                <p class="concept-p">Ningún sistema abierto es autosuficiente; depende del ambiente externo para adquirir recursos indispensables. Las entradas pueden clasificarse en:</p>
+                                <ul class="concept-list">
+                                    <li><strong>Materia:</strong> Insumos tangibles que serán transformados o consumidos (ej. hierro en una siderúrgica, alimentos en el cuerpo).</li>
+                                    <li><strong>Energía:</strong> La fuerza que dinamiza y mueve los mecanismos del sistema (ej. electricidad, radiación solar, calor).</li>
+                                    <li><strong>Información:</strong> Datos, instrucciones, señales o variables del entorno que orientan la operación del sistema (ej. especificaciones de diseño, temperatura ambiental).</li>
+                                </ul>
+                                <div class="concept-academic">
+                                    <strong>Enfoque Cibernético:</strong> Representa la disminución de la entropía importando orden (*negentropía*) desde el exterior para evitar la degradación del sistema.
+                                </div>
+                            </div>
+                            <div class="concept-visualization">
+                                <div class="flow-box border-cyan">
+                                    <div class="box-header bg-cyan">Ambiente Externo</div>
+                                    <div class="box-body">
+                                        <div class="arrow-indicator anim-flow-right">
+                                            <span>Materia</span>
+                                            <span>Energía</span>
+                                            <span>Información</span>
+                                        </div>
+                                        <div class="target-box bg-dark-cyan">ENTRADA (Sistema)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Proceso -->
+                    <div class="concept-panel" id="c-process">
+                        <div class="concept-layout">
+                            <div class="concept-info">
+                                <h3 class="concept-heading text-purple">Definición Formal del Proceso</h3>
+                                <p class="concept-p">Es la corriente de transformación que convierte las entradas en salidas. Consiste en la acción combinada de las partes y subsistemas para alterar el estado de los insumos.</p>
+                                <p class="concept-p">El proceso representa el comportamiento dinámico e interno del sistema. A menudo se le llama <strong>"Caja Negra"</strong> (*Black Box*) cuando:</p>
+                                <ul class="concept-list">
+                                    <li>El observador se enfoca en las relaciones causa-efecto (Entradas vs. Salidas) sin necesidad de detallar la compleja mecánica interna.</li>
+                                    <li>Los mecanismos internos son tan intrincados o inaccesibles que solo pueden inferirse experimentalmente evaluando qué sale ante determinado estímulo de entrada.</li>
+                                </ul>
+                                <div class="concept-academic">
+                                    <strong>Enfoque de Sistemas:</strong> En este punto ocurre la *sinergia*, donde el trabajo coordinado de los subsistemas produce un valor que excede las contribuciones individuales.
+                                </div>
+                            </div>
+                            <div class="concept-visualization">
+                                <div class="black-box-container">
+                                    <div class="flow-line entry-line"></div>
+                                    <div class="black-box border-purple">
+                                        <span class="bb-title">CAJA NEGRA</span>
+                                        <span class="bb-subtitle">(Proceso de Transformación)</span>
+                                        <div class="bb-gears">⚙️⚙️</div>
+                                    </div>
+                                    <div class="flow-line exit-line"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Salida -->
+                    <div class="concept-panel" id="c-output">
+                        <div class="concept-layout">
+                            <div class="concept-info">
+                                <h3 class="concept-heading text-green">Definición Formal de la Salida</h3>
+                                <p class="concept-p">Es el resultado del proceso de transformación. Representa la exportación de productos, servicios, energía modificada o información hacia el medio ambiente externo.</p>
+                                <p class="concept-p">La salida cumple con el propósito de existencia del sistema y determina su viabilidad a largo plazo. Las salidas se agrupan en:</p>
+                                <ul class="concept-list">
+                                    <li><strong>Salidas Principales (Útiles):</strong> Aquellos resultados que justifican la existencia del sistema en primer lugar (ej. vehículos terminados, pacientes curados).</li>
+                                    <li><strong>Residuos o Desechos:</strong> Subproductos del proceso de transformación que no aportan valor inmediato y a menudo incrementan la entropía ambiental (ej. calor disipado, gases de combustión, chatarra).</li>
+                                    <li><strong>Información/Señales:</strong> Datos reportados al ambiente para comunicar estados internos del sistema.</li>
+                                </ul>
+                            </div>
+                            <div class="concept-visualization">
+                                <div class="flow-box border-green">
+                                    <div class="box-header bg-green">SISTEMA</div>
+                                    <div class="box-body">
+                                        <div class="target-box bg-dark-green">SALIDA</div>
+                                        <div class="arrow-indicator anim-flow-right">
+                                            <span>Productos Útiles</span>
+                                            <span>Residuos / Calor</span>
+                                            <span>Señales / Datos</span>
+                                        </div>
+                                        <div class="box-header bg-dark-neutral">Ambiente Receptor</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Retroalimentación -->
+                    <div class="concept-panel" id="c-feedback">
+                        <div class="concept-layout">
+                            <div class="concept-info">
+                                <h3 class="concept-heading text-coral">Definición Formal de la Retroalimentación</h3>
+                                <p class="concept-p">Es el mecanismo de control mediante el cual una fracción de la salida de un sistema se redirige nuevamente hacia la entrada, modificando su comportamiento posterior.</p>
+                                <p class="concept-p">La retroalimentación (*Feedback*) es el núcleo de la estabilidad y la autorregulación. Existen dos tipos fundamentales descritos por la cibernética:</p>
+                                <ul class="concept-list">
+                                    <li><strong>Retroalimentación Negativa (Balancing / Homeostática):</strong> Reduce la desviación entre el desempeño del sistema y el objetivo deseado. Actúa como freno automático estabilizador. (Ej: Un termostato, el hambre en los animales).</li>
+                                    <li><strong>Retroalimentación Positiva (Reinforcing / Amplificadora):</strong> Amplifica y acelera los cambios o desviaciones del sistema. Conduce al crecimiento exponencial o al colapso destructivo si no es regulada. (Ej: El acople de audio de un micrófono, el pánico bancario, el nacimiento biológico).</li>
+                                </ul>
+                            </div>
+                            <div class="concept-visualization">
+                                <div class="feedback-loop-diagram">
+                                    <div class="loop-top">
+                                        <div class="loop-node bg-dark-cyan">Comparador</div>
+                                        <div class="loop-arrow">➡️</div>
+                                        <div class="loop-node bg-dark-purple">Proceso</div>
+                                    </div>
+                                    <div class="loop-bottom">
+                                        <div class="loop-arrow-left">⬅️ (Señal de Retorno)</div>
+                                        <div class="loop-node bg-coral">Sensor (Salida)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección: Casos Prácticos -->
+            <section id="casos" class="tab-content">
+                <div class="section-title-wrap">
+                    <span class="subtitle-tag">Aplicación Práctica</span>
+                    <h2 class="section-title">Análisis de Sistemas Reales</h2>
+                    <div class="title-underline"></div>
+                </div>
+                <p class="section-desc">Selecciona un sistema a continuación para interactuar con sus componentes y observar cómo fluyen la materia, energía e información a través de ellos.</p>
+
+                <!-- Selector de Casos -->
+                <div class="cases-selector">
+                    <button class="case-select-btn active" data-case="solar">
+                        🌞 Calentador Solar de Agua
+                    </button>
+                    <button class="case-select-btn" data-case="biologico">
+                        🧬 Homeostasis Humana
+                    </button>
+                    <button class="case-select-btn" data-case="startup">
+                        💻 Startup de Software
+                    </button>
+                </div>
+
+                <!-- Contenedores de Caso -->
+                <div class="case-detail-container">
+                    <!-- Calentador Solar -->
+                    <div class="case-pane active" id="case-solar">
+                        <div class="case-grid">
+                            <div class="case-description-column">
+                                <div class="case-badge">Sistema Termodinámico y Físico</div>
+                                <h3>Calentador Solar de Agua</h3>
+                                <p class="case-p">Un calentador solar capta la radiación solar para calentar agua líquida de consumo. Es un sistema altamente regulable y visible en la vida diaria.</p>
+                                
+                                <div class="flows-display">
+                                    <div class="flow-pill" data-flow="solar-input">
+                                        <span class="pill-dot bg-cyan"></span> Entrada
+                                    </div>
+                                    <div class="flow-pill" data-flow="solar-process">
+                                        <span class="pill-dot bg-purple"></span> Proceso
+                                    </div>
+                                    <div class="flow-pill" data-flow="solar-output">
+                                        <span class="pill-dot bg-green"></span> Salida
+                                    </div>
+                                    <div class="flow-pill" data-flow="solar-feedback">
+                                        <span class="pill-dot bg-coral"></span> Retroalimentación
+                                    </div>
+                                </div>
+
+                                <div class="flow-explanation-box" id="solarExplanationBox">
+                                    <p class="explanation-placeholder">Selecciona un flujo de la izquierda para ver su detalle en el sistema.</p>
+                                </div>
+                            </div>
+                            <div class="case-visual-column">
+                                <div class="system-blueprint">
+                                    <!-- Blueprint SVG -->
+                                    <svg viewBox="0 0 400 300" class="blueprint-svg">
+                                        <!-- Colector Solar -->
+                                        <rect x="50" y="150" width="120" height="100" rx="5" fill="none" stroke="#4a5568" stroke-width="2"/>
+                                        <line x1="50" y1="150" x2="170" y2="250" stroke="#4a5568" stroke-width="2"/>
+                                        <text x="110" y="210" fill="#718096" font-size="12" text-anchor="middle">Colector Solar</text>
+
+                                        <!-- Radiación (Entrada) -->
+                                        <g id="blue-solar-sun">
+                                            <circle cx="60" cy="50" r="20" fill="none" stroke="hsl(180, 100%, 50%)" stroke-dasharray="4,4"/>
+                                            <line x1="60" y1="50" x2="90" y2="100" stroke="hsl(180, 100%, 50%)" stroke-width="2" marker-end="url(#arrow)"/>
+                                        </g>
+
+                                        <!-- Termotanque (Almacenamiento) -->
+                                        <rect x="220" y="60" width="130" height="80" rx="10" fill="none" stroke="#4a5568" stroke-width="2"/>
+                                        <text x="285" y="105" fill="#718096" font-size="12" text-anchor="middle">Termotanque</text>
+
+                                        <!-- Agua fría (Entrada) -->
+                                        <path d="M 20 100 L 220 100" fill="none" stroke="hsl(180, 100%, 50%)" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="5,5"/>
+                                        <text x="70" y="90" fill="hsl(180, 100%, 50%)" font-size="10">Agua Fría (Entrada)</text>
+
+                                        <!-- Conexión tubos (Proceso) -->
+                                        <path d="M 140 220 L 250 140" fill="none" stroke="hsl(270, 90%, 65%)" stroke-width="2" stroke-dasharray="5,5"/>
+                                        <text x="195" y="170" fill="hsl(270, 90%, 65%)" font-size="10">Termosifón</text>
+
+                                        <!-- Agua Caliente (Salida) -->
+                                        <path d="M 350 100 L 390 100" fill="none" stroke="hsl(145, 80%, 50%)" stroke-width="2" marker-end="url(#arrow)"/>
+                                        <text x="360" y="85" fill="hsl(145, 80%, 50%)" font-size="10">Agua Caliente</text>
+
+                                        <!-- Válvula Mezcladora (Retroalimentación) -->
+                                        <rect x="270" y="180" width="30" height="20" rx="3" fill="none" stroke="hsl(20, 95%, 55%)" stroke-width="1.5"/>
+                                        <text x="285" y="170" fill="hsl(20, 95%, 55%)" font-size="9" text-anchor="middle">Válvula</text>
+                                        <path d="M 285 140 L 285 180" fill="none" stroke="hsl(20, 95%, 55%)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Homeostasis Humana -->
+                    <div class="case-pane" id="case-biologico">
+                        <div class="case-grid">
+                            <div class="case-description-column">
+                                <div class="case-badge">Sistema Biológico Complejo</div>
+                                <h3>Regulación de la Temperatura Corporal</h3>
+                                <p class="case-p">El cuerpo humano debe mantener su temperatura a ~37°C a pesar de los cambios en el ambiente exterior. Es un ejemplo supremo de retroalimentación negativa.</p>
+                                
+                                <div class="flows-display">
+                                    <div class="flow-pill" data-flow="bio-input">
+                                        <span class="pill-dot bg-cyan"></span> Entrada
+                                    </div>
+                                    <div class="flow-pill" data-flow="bio-process">
+                                        <span class="pill-dot bg-purple"></span> Proceso
+                                    </div>
+                                    <div class="flow-pill" data-flow="bio-output">
+                                        <span class="pill-dot bg-green"></span> Salida
+                                    </div>
+                                    <div class="flow-pill" data-flow="bio-feedback">
+                                        <span class="pill-dot bg-coral"></span> Retroalimentación
+                                    </div>
+                                </div>
+
+                                <div class="flow-explanation-box" id="bioExplanationBox">
+                                    <p class="explanation-placeholder">Selecciona un flujo de la izquierda para ver su detalle en el sistema.</p>
+                                </div>
+                            </div>
+                            <div class="case-visual-column">
+                                <div class="system-blueprint">
+                                    <svg viewBox="0 0 400 300" class="blueprint-svg">
+                                        <!-- Silueta Humana Simplificada -->
+                                        <g stroke="#4a5568" stroke-width="2" fill="none">
+                                            <circle cx="200" cy="60" r="20"/>
+                                            <line x1="200" y1="80" x2="200" y2="180"/>
+                                            <line x1="200" y1="100" x2="160" y2="130"/>
+                                            <line x1="200" y1="100" x2="240" y2="130"/>
+                                            <line x1="200" y1="180" x2="175" y2="250"/>
+                                            <line x1="200" y1="180" x2="225" y2="250"/>
+                                        </g>
+                                        
+                                        <!-- Sensor/Hipotálamo -->
+                                        <circle cx="200" cy="60" r="4" fill="hsl(20, 95%, 55%)"/>
+                                        <text x="210" y="60" fill="hsl(20, 95%, 55%)" font-size="10">Hipotálamo</text>
+
+                                        <!-- Estímulo Térmico (Entrada) -->
+                                        <path d="M 120 40 L 170 60" fill="none" stroke="hsl(180, 100%, 50%)" stroke-width="2" marker-end="url(#arrow)"/>
+                                        <text x="100" y="30" fill="hsl(180, 100%, 50%)" font-size="10">Frío/Calor (Entrada)</text>
+
+                                        <!-- Respuesta (Salida) -->
+                                        <path d="M 230 140 L 280 140" fill="none" stroke="hsl(145, 80%, 50%)" stroke-width="2" marker-end="url(#arrow)"/>
+                                        <text x="250" y="130" fill="hsl(145, 80%, 50%)" font-size="10">Sudor/Escalofrío</text>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Startup de Software -->
+                    <div class="case-pane" id="case-startup">
+                        <div class="case-grid">
+                            <div class="case-description-column">
+                                <div class="case-badge">Sistema Socio-Técnico</div>
+                                <h3>Startup de Base Tecnológica</h3>
+                                <p class="case-p">Una empresa de software funciona como un sistema abierto dinámico que consume capital y talento para entregar código y valor, usando métricas del cliente como control.</p>
+                                
+                                <div class="flows-display">
+                                    <div class="flow-pill" data-flow="startup-input">
+                                        <span class="pill-dot bg-cyan"></span> Entrada
+                                    </div>
+                                    <div class="flow-pill" data-flow="startup-process">
+                                        <span class="pill-dot bg-purple"></span> Proceso
+                                    </div>
+                                    <div class="flow-pill" data-flow="startup-output">
+                                        <span class="pill-dot bg-green"></span> Salida
+                                    </div>
+                                    <div class="flow-pill" data-flow="startup-feedback">
+                                        <span class="pill-dot bg-coral"></span> Retroalimentación
+                                    </div>
+                                </div>
+
+                                <div class="flow-explanation-box" id="startupExplanationBox">
+                                    <p class="explanation-placeholder">Selecciona un flujo de la izquierda para ver su detalle en el sistema.</p>
+                                </div>
+                            </div>
+                            <div class="case-visual-column">
+                                <div class="system-blueprint">
+                                    <svg viewBox="0 0 400 300" class="blueprint-svg">
+                                        <!-- Estructura de Startup -->
+                                        <rect x="140" y="110" width="120" height="80" rx="8" fill="none" stroke="#4a5568" stroke-width="2"/>
+                                        <text x="200" y="150" fill="#718096" font-size="11" text-anchor="middle">Equipo e Infraestructura</text>
+
+                                        <!-- Inversión / Clientes (Entrada) -->
+                                        <path d="M 20 150 L 140 150" fill="none" stroke="hsl(180, 100%, 50%)" stroke-width="2" marker-end="url(#arrow)"/>
+                                        <text x="50" y="135" fill="hsl(180, 100%, 50%)" font-size="10">Capital y Requerimientos</text>
+
+                                        <!-- Producto (Salida) -->
+                                        <path d="M 260 150 L 380 150" fill="none" stroke="hsl(145, 80%, 50%)" stroke-width="2" marker-end="url(#arrow)"/>
+                                        <text x="280" y="135" fill="hsl(145, 80%, 50%)" font-size="10">SaaS / Software Útil</text>
+
+                                        <!-- Lazo de Ventas y NPS (Retroalimentación) -->
+                                        <path d="M 320 160 L 320 230 L 80 230 L 80 160" fill="none" stroke="hsl(20, 95%, 55%)" stroke-width="1.5" marker-end="url(#arrow-coral)"/>
+                                        <text x="200" y="220" fill="hsl(20, 95%, 55%)" font-size="9" text-anchor="middle">Métricas de Clientes (Churn, NPS)</text>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección: Juego 1 - Constructor de Sistemas (Architect) -->
+            <section id="constructor" class="tab-content">
+                <div class="section-title-wrap">
+                    <span class="subtitle-tag">Minijuego de Aprendizaje Activo</span>
+                    <h2 class="section-title">Juego 1: Architect (Diseñador de Sistemas)</h2>
+                    <div class="title-underline"></div>
+                </div>
+                
+                <div class="game-intro-card" id="architectIntroCard">
+                    <h3>¿Estás listo para asumir el rol de Diseñador de Sistemas?</h3>
+                    <p>En este juego, se te asignará un sistema desestructurado. Tu misión es analizar cada uno de los componentes flotantes y arrastrarlos o hacer clic para colocarlos en su categoría de flujo formal correcta (Entrada, Proceso, Salida o Retroalimentación).</p>
+                    
+                    <div class="game-select-scenario">
+                        <h4>Selecciona un escenario de prueba:</h4>
+                        <div class="scenario-buttons">
+                            <button class="btn btn-outline" onclick="initArchitectGame('atm')">🏦 Cajero Automático (ATM)</button>
+                            <button class="btn btn-outline" onclick="initArchitectGame('purifier')">💧 Planta Purificadora de Agua</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tablero del Juego 1 -->
+                <div class="game-board-container hidden" id="architectGameBoard">
+                    <div class="game-header">
+                        <div class="game-scenario-title">
+                            Escenario: <span id="gameScenarioName">Cajero Automático</span>
+                        </div>
+                        <div class="game-stats">
+                            <span>Puntos: <strong id="gameScoreText">0</strong></span>
+                            <span>Intentos: <strong id="gameAttemptsText">0</strong>/4</span>
+                        </div>
+                        <button class="btn btn-sm btn-outline" onclick="resetArchitectGame()">Cambiar Escenario</button>
+                    </div>
+
+                    <!-- Componentes flotantes/desordenados -->
+                    <div class="scrambled-elements-panel">
+                        <h4>Elementos por clasificar:</h4>
+                        <div class="elements-pool" id="elementsPool">
+                            <!-- Los elementos se insertarán dinámicamente -->
+                        </div>
+                    </div>
+
+                    <!-- Canastas / Zonas de depósito -->
+                    <div class="game-drop-grid">
+                        <div class="drop-zone border-cyan" data-zone="input">
+                            <div class="zone-header bg-cyan">ENTRADAS</div>
+                            <div class="zone-slots" id="zone-input"></div>
+                        </div>
+
+                        <div class="drop-zone border-purple" data-zone="process">
+                            <div class="zone-header bg-purple">PROCESOS</div>
+                            <div class="zone-slots" id="zone-process"></div>
+                        </div>
+
+                        <div class="drop-zone border-green" data-zone="output">
+                            <div class="zone-header bg-green">SALIDAS</div>
+                            <div class="zone-slots" id="zone-output"></div>
+                        </div>
+
+                        <div class="drop-zone border-coral" data-zone="feedback">
+                            <div class="zone-header bg-coral">RETROALIMENTACIÓN</div>
+                            <div class="zone-slots" id="zone-feedback"></div>
+                        </div>
+                    </div>
+
+                    <!-- Mensajes de Estado del Juego -->
+                    <div class="game-feedback-banner hidden" id="gameFeedbackBanner">
+                        <div class="feedback-icon" id="gameFeedbackIcon">✅</div>
+                        <div class="feedback-msg-wrap">
+                            <h5 id="gameFeedbackTitle">¡Excelente trabajo!</h5>
+                            <p id="gameFeedbackMsg">Ese componente encaja perfectamente en ese flujo.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal de victoria/derrota del Juego 1 -->
+                <div class="game-result-overlay hidden" id="architectResultOverlay">
+                    <div class="result-modal glow-card">
+                        <div class="result-emoji" id="architectResultEmoji">🏆</div>
+                        <h2 id="architectResultTitle">¡Sistema Completado con Éxito!</h2>
+                        <p id="architectResultDesc">Has demostrado un dominio excepcional sobre la anatomía de este sistema.</p>
+                        <div class="result-score-wrap">
+                            <span>Puntuación final: <strong id="architectResultScore">100</strong> puntos</span>
+                        </div>
+                        <div class="modal-buttons">
+                            <button class="btn btn-primary" onclick="resetArchitectGame()">Jugar de Nuevo</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección: Juego 2 - Control de Lazo Cerrado (Lab Control) -->
+            <section id="simulador" class="tab-content">
+                <div class="section-title-wrap">
+                    <span class="subtitle-tag">Simulador Interactivo en Tiempo Real</span>
+                    <h2 class="section-title">Juego 2: Lab Control (Estabilidad Homeostática)</h2>
+                    <div class="title-underline"></div>
+                </div>
+                <p class="section-desc">En este simulador, eres el operador técnico de un **Invernadero Automatizado**. Tu objetivo es mantener la temperatura dentro del **rango óptimo (18°C a 25°C)** frente a perturbaciones climáticas extremas del exterior.</p>
+
+                <div class="simulator-layout">
+                    <!-- Columna de Controles -->
+                    <div class="sim-controls-card glow-card">
+                        <h3>Configuración del Sistema</h3>
+                        
+                        <div class="control-group">
+                            <label><strong>Modo de Operación:</strong></label>
+                            <div class="sim-mode-toggle">
+                                <button class="mode-btn active" data-mode="open" onclick="setSimMode('open')">
+                                    Lazo Abierto <span class="block text-xs font-normal text-gray-400">(Sin Feedback)</span>
+                                </button>
+                                <button class="mode-btn" data-mode="closed-neg" onclick="setSimMode('closed-neg')">
+                                    Lazo Cerrado Negativo <span class="block text-xs font-normal text-gray-400">(Homeostasis)</span>
+                                </button>
+                                <button class="mode-btn" data-mode="closed-pos" onclick="setSimMode('closed-pos')">
+                                    Lazo Cerrado Positivo <span class="block text-xs font-normal text-gray-400">(Caos/Amplificador)</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="tempPerturbSlider"><strong>Temperatura Exterior (Perturbación):</strong> <span id="tempExtText">20°C</span></label>
+                            <input type="range" id="tempPerturbSlider" min="0" max="45" value="20" class="premium-slider">
+                            <span class="slider-hint">Arrastra para simular frentes fríos o de calor severos.</span>
+                        </div>
+
+                        <!-- Manual Actuator Controls (Only active in Open Loop) -->
+                        <div class="control-group" id="manualActuatorGroup">
+                            <label><strong>Actuador Manual (Calefactor / Extractor):</strong></label>
+                            <div class="actuator-slider-wrap">
+                                <span>Enfriar</span>
+                                <input type="range" id="actuatorSlider" min="-100" max="100" value="0" class="premium-slider">
+                                <span>Calentar</span>
+                            </div>
+                            <span class="slider-hint">En Lazo Abierto, debes regular la potencia tú mismo para estabilizar el sistema.</span>
+                        </div>
+
+                        <!-- Botones de Acción -->
+                        <div class="sim-actions">
+                            <button class="btn btn-primary" id="startSimBtn" onclick="toggleSim()">Iniciar Simulación</button>
+                            <button class="btn btn-outline" onclick="resetSim()">Restablecer</button>
+                        </div>
+                    </div>
+
+                    <!-- Columna de Pantalla Visualizador -->
+                    <div class="sim-display-card">
+                        <div class="monitor-header">
+                            <span class="monitor-title">PANEL DE CONTROL CENTRAL</span>
+                            <div class="sys-status" id="sysStatusIndicator">
+                                <span class="status-dot status-inactive"></span>
+                                <span class="status-label">APAGADO</span>
+                            </div>
+                        </div>
+
+                        <div class="monitor-body">
+                            <!-- Métricas del Invernadero -->
+                            <div class="metrics-grid">
+                                <div class="metric-box border-cyan">
+                                    <span class="metric-label">Temp. Exterior (Input)</span>
+                                    <span class="metric-value text-cyan" id="metricExtTemp">20.0 °C</span>
+                                </div>
+                                <div class="metric-box border-purple">
+                                    <span class="metric-label">Temperatura Interior</span>
+                                    <span class="metric-value text-purple" id="metricIntTemp">22.0 °C</span>
+                                </div>
+                                <div class="metric-box border-green">
+                                    <span class="metric-label">Consumo de Energía</span>
+                                    <span class="metric-value text-green" id="metricPower">0 %</span>
+                                </div>
+                                <div class="metric-box border-coral" id="feedbackSensorBox">
+                                    <span class="metric-label">Acción de Lazo</span>
+                                    <span class="metric-value text-coral" id="metricFeedback">INACTIVO</span>
+                                </div>
+                            </div>
+
+                            <!-- Gráfico Dinámico SVG -->
+                            <div class="sim-graph-container">
+                                <h4 class="graph-title">Comportamiento del Sistema en el Tiempo</h4>
+                                <svg id="simRealtimeGraph" viewBox="0 0 500 150" class="sim-graph-svg">
+                                    <!-- Rango Óptimo de Temperatura (Sombreado) -->
+                                    <rect x="0" y="45" width="500" height="35" fill="rgba(16, 185, 129, 0.08)" stroke="rgba(16, 185, 129, 0.2)" stroke-dasharray="3,3"/>
+                                    <text x="10" y="65" fill="rgba(16, 185, 129, 0.6)" font-size="9">Zona Óptima (18°C - 25°C)</text>
+
+                                    <!-- Ejes -->
+                                    <line x1="0" y1="130" x2="500" y2="130" stroke="#4a5568"/>
+                                    <line x1="0" y1="10" x2="0" y2="130" stroke="#4a5568"/>
+
+                                    <!-- Curva de Temperatura Interior -->
+                                    <path id="tempPath" d="M 0 65" fill="none" stroke="hsl(270, 90%, 65%)" stroke-width="2.5"/>
+                                    <!-- Curva de Temperatura Exterior (Perturbación) -->
+                                    <path id="extTempPath" d="M 0 65" fill="none" stroke="hsl(180, 100%, 50%)" stroke-width="1.5" stroke-dasharray="3,2"/>
+                                </svg>
+                                <div class="graph-legend">
+                                    <span class="leg-item"><span class="leg-line line-purple"></span> Temp. Interior</span>
+                                    <span class="leg-item"><span class="leg-line line-cyan-dash"></span> Temp. Exterior</span>
+                                </div>
+                            </div>
+
+                            <!-- Estado Biológico del Cultivo -->
+                            <div class="crop-health-status" id="cropHealthStatus">
+                                <div class="health-header">
+                                    <span>Salud del Cultivo:</span>
+                                    <strong id="healthPctText">100%</strong>
+                                </div>
+                                <div class="health-bar-container">
+                                    <div class="health-bar bg-green" id="healthBar" style="width: 100%;"></div>
+                                </div>
+                                <span class="health-desc" id="healthDescText">Las plantas se encuentran en condiciones térmicas ideales.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección: Videos Relacionados -->
+            <section id="videos" class="tab-content">
+                <div class="section-title-wrap">
+                    <span class="subtitle-tag">Biblioteca Multimedia</span>
+                    <h2 class="section-title">Contenido Audiovisual Seleccionado</h2>
+                    <div class="title-underline"></div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="video-card glow-card">
+                        <div class="video-wrapper">
+                            <!-- Video Curado de YouTube -->
+                            <iframe src="https://www.youtube.com/embed/a-W2-aWjSjs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <span class="v-tag bg-cyan">Introducción</span>
+                            <h3>La Teoría General de Sistemas</h3>
+                            <p>Un video que explica de forma clara y accesible los cimientos de la TGS, su origen y su aplicación práctica en diferentes ciencias modernas.</p>
+                        </div>
+                    </div>
+
+                    <div class="video-card glow-card">
+                        <div class="video-wrapper">
+                            <!-- Video Curado sobre Retroalimentación y Cibernética -->
+                            <iframe src="https://www.youtube.com/embed/wL5SjR2U61Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <span class="v-tag bg-coral">Cibernética</span>
+                            <h3>¿Qué es el Feedback (Lazo Cerrado)?</h3>
+                            <p>Explicación visual detallada sobre el concepto de feedback loop, homeostasis, retroalimentación positiva y negativa y cómo moldean la estabilidad planetaria.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección: Quiz e Inteligencia Evaluativa -->
+            <section id="evaluacion" class="tab-content">
+                <div class="section-title-wrap">
+                    <span class="subtitle-tag">Comprobación del Conocimiento</span>
+                    <h2 class="section-title">Quiz de Sistemas Inteligente</h2>
+                    <div class="title-underline"></div>
+                </div>
+
+                <!-- Card de Inicio de Quiz -->
+                <div class="quiz-card glow-card" id="quizStartCard">
+                    <div class="quiz-badge">Evaluación Final</div>
+                    <h3>Demuestra que eres un Maestro de la TGS</h3>
+                    <p>Este quiz consta de **10 preguntas de selección múltiple** diseñadas para evaluar tu comprensión teórica y práctica de la Entrada, Proceso, Salida y Retroalimentación.</p>
+                    
+                    <div class="quiz-rules">
+                        <ul>
+                            <li>💡 <strong>Retroalimentación:</strong> Conocerás la explicación correcta inmediatamente después de responder cada pregunta.</li>
+                            <li>🏆 <strong>Certificado Digital:</strong> Si logras una puntuación de <strong>8/10 (80%)</strong> o más, desbloquearás un diploma de aprobación descargable.</li>
+                        </ul>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="startQuiz()">Comenzar Evaluación</button>
+                </div>
+
+                <!-- Panel del Cuestionario Activo -->
+                <div class="quiz-card glow-card hidden" id="quizActivePanel">
+                    <div class="quiz-active-header">
+                        <span class="quiz-q-num">Pregunta <strong id="currentQuestionNum">1</strong> de 10</span>
+                        <div class="quiz-progress-container">
+                            <div class="quiz-progress-bar" id="quizProgressBar" style="width: 10%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Pregunta -->
+                    <div class="quiz-question-wrap">
+                        <h4 id="questionText">¿Cuál es la función principal de la retroalimentación negativa en un sistema abierto?</h4>
+                        
+                        <!-- Opciones de Respuesta -->
+                        <div class="quiz-options-list" id="quizOptionsList">
+                            <!-- Se renderizarán dinámicamente -->
+                        </div>
+                    </div>
+
+                    <!-- Panel de Retroalimentación de Pregunta -->
+                    <div class="question-feedback-box hidden" id="questionFeedbackBox">
+                        <h5 id="questionFeedbackTitle">¡Correcto!</h5>
+                        <p id="questionFeedbackDesc">Explicación detallada del por qué.</p>
+                        <button class="btn btn-sm btn-primary" id="nextQuestionBtn" onclick="nextQuestion()">Siguiente Pregunta ➡️</button>
+                    </div>
+                </div>
+
+                <!-- Panel de Resultados del Quiz -->
+                <div class="quiz-card glow-card hidden" id="quizResultPanel">
+                    <div class="quiz-result-header">
+                        <div class="result-radial-score">
+                            <span class="result-score-val" id="resultScoreText">8/10</span>
+                            <span class="result-score-lbl">Aciertos</span>
+                        </div>
+                        <div class="quiz-verdict">
+                            <h3 id="quizVerdictTitle">¡Felicidades, Aprobado!</h3>
+                            <p id="quizVerdictDesc">Has dominado los flujos dinámicos de la Teoría General de Sistemas con una excelente nota.</p>
+                        </div>
+                    </div>
+
+                    <!-- Sección de descarga del Diploma (si aprueba) -->
+                    <div class="certificate-unlock-box hidden" id="certificateBox">
+                        <div class="cert-ribbon">🏆 DIPLOMA DESBLOQUEADO</div>
+                        <p>Hemos generado un certificado digital conmemorativo de aprobación a tu nombre. Puedes visualizarlo e imprimirlo o guardarlo como PDF a continuación.</p>
+                        
+                        <!-- Vista del Certificado -->
+                        <div class="certificate-preview-wrapper">
+                            <div class="certificate-container" id="printableCertificate">
+                                <div class="cert-border">
+                                    <div class="cert-content">
+                                        <div class="cert-logo">UNIVERSIDAD DE LA DINÁMICA DE SISTEMAS</div>
+                                        <div class="cert-title">Certificado de Aprobación</div>
+                                        <div class="cert-granted">Otorgado a:</div>
+                                        <div class="cert-name-input-wrap">
+                                            <input type="text" id="studentCertName" placeholder="Escribe tu Nombre Completo aquí" class="cert-name-input">
+                                        </div>
+                                        <div class="cert-text">
+                                            Por haber acreditado con éxito y con un desempeño sobresaliente el módulo interactivo de aprendizaje sobre la
+                                            <strong>Teoría General de Sistemas (TGS)</strong>, dominando los fundamentos teóricos y prácticos de:
+                                            <br><em>Entrada, Proceso, Salida y Retroalimentación</em>.
+                                        </div>
+                                        <div class="cert-meta">
+                                            <div class="cert-date">
+                                                <span>Fecha:</span>
+                                                <strong id="certDateText">29 de mayo, 2026</strong>
+                                            </div>
+                                            <div class="cert-score">
+                                                <span>Nota Final:</span>
+                                                <strong id="certScoreText">100%</strong>
+                                            </div>
+                                        </div>
+                                        <div class="cert-signature-row">
+                                            <div class="signature-line">
+                                                <span class="sig-title">OVA de Aprendizaje TGS</span>
+                                                <span class="sig-sub">Validador de Sistemas</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" onclick="printCertificate()">🖨️ Descargar o Imprimir Certificado</button>
+                    </div>
+
+                    <div class="quiz-retry-box">
+                        <button class="btn btn-outline" onclick="resetQuiz()">Intentar de Nuevo</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección: Créditos y Referencias -->
+            <section id="creditos" class="tab-content">
+                <div class="section-title-wrap">
+                    <span class="subtitle-tag">Autoría y Soporte</span>
+                    <h2 class="section-title">Créditos y Referencias Bibliográficas</h2>
+                    <div class="title-underline"></div>
+                </div>
+
+                <div class="grid-2">
+                    <!-- Tarjeta del Estudiante -->
+                    <div class="info-card glow-card">
+                        <div class="author-profile">
+                            <div class="author-avatar">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                            </div>
+                            <div class="author-info">
+                                <span class="author-role">Estudiante / Desarrollador</span>
+                                <h3>Diseño e Implementación</h3>
+                                <p>Desarrollado como Objeto Virtual de Aprendizaje (OVA) práctico e interactivo para la cátedra de **Teoría General de Sistemas**.</p>
+                                <p class="author-note">"Apoyado con Inteligencia Artificial (Antigravity AI) de Google DeepMind para optimizar el diseño visual y las simulaciones interactivas."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta de Referencias Académicas -->
+                    <div class="info-card glow-card">
+                        <h3>Referencias Bibliográficas (Normas APA)</h3>
+                        <ul class="academic-references">
+                            <li>
+                                <strong>Bertalanffy, L. V. (1968).</strong> <em>General System Theory: Foundations, Development, Applications</em>. New York: George Braziller.
+                            </li>
+                            <li>
+                                <strong>Wiener, N. (1948).</strong> <em>Cybernetics: Or Control and Communication in the Animal and the Machine</em>. Paris: Hermann & Cie.
+                            </li>
+                            <li>
+                                <strong>Johansen, O. (1982).</strong> <em>Introducción a la Teoría General de Sistemas</em>. México: Limusa.
+                            </li>
+                            <li>
+                                <strong>Forrester, J. W. (1961).</strong> <em>Industrial Dynamics</em>. Cambridge, MA: MIT Press.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts de la Aplicación -->
+    <script src="app.js"></script>
+    <script src="games.js"></script>
+</body>
+</html>
