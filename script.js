@@ -93,7 +93,7 @@ const ovas = [
     num: 16,
     topic: "Teoría de la organización y cibernética",
     author: "Kevin Yesid Urbina García",
-    link: "https://github.com/tamid555/ova-tgs/blob/main/ovas/OVA_Kevin_Urbina/TGS%20Cibernetica%20Y%20Organizacion.html"
+    link: "ovas/OVA_Kevin_Urbina/TGS%20Cibernetica%20Y%20Organizacion.html"
   },
   {
     num: 17,
