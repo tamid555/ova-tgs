@@ -55,7 +55,7 @@ const ovas = [
     num: 8,
     topic: "Orígenes y principios de la TGS",
     author: "Jonathan David Melo Claro",
-    link: null
+    link: ovas/OVA_Jonathan_Melo/index.html
   },
   {
     num: 9,
