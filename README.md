@@ -71,7 +71,6 @@ ova-tgs/
 ├── index.html     → Estructura principal de la página
 ├── style.css      → Estilos y diseño visual (tema rojo y negro)
 ├── script.js      → Datos de las OVAs y lógica interactiva
-└── README.md      → Este archivo
 ```
 
 ---
