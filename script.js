@@ -1,19 +1,9 @@
-// ============================================
-// OVA Final — TGS · Tamid Felipe Viloria Vargas
-// script.js — datos y lógica interactiva
-// ============================================
-
-// ─── DATOS DE LAS OVAs ───────────────────────────────────────────────────────
-// Para agregar un link: reemplaza null por la URL entre comillas, ejemplo:
-//   link: "https://tunombre.github.io/ova-tgs"
-// ─────────────────────────────────────────────────────────────────────────────
-
 const ovas = [
   {
     num: 1,
     topic: "Definiciones de Sistema",
     author: "Jhonatan Javier Acevedo Gelves",
-    link: null   // <-- pega aquí el link cuando lo tengas
+    link: null
   },
   {
     num: 2,
@@ -119,8 +109,6 @@ const ovas = [
   }
 ];
 
-// ─── RENDERIZAR TARJETAS ──────────────────────────────────────────────────────
-
 function renderCards(list) {
   const grid = document.getElementById("ova-grid");
   const empty = document.getElementById("empty-state");
@@ -179,15 +167,11 @@ function renderCards(list) {
   });
 }
 
-// ─── CONTAR LINKS DISPONIBLES ─────────────────────────────────────────────────
-
 function updateStats() {
   const available = ovas.filter(o => o.link && o.link.trim() !== "").length;
   const el = document.getElementById("available-count");
   if (el) el.textContent = available;
 }
-
-// ─── BÚSQUEDA Y FILTROS ───────────────────────────────────────────────────────
 
 let currentFilter = "all";
 let currentSearch = "";
@@ -223,8 +207,6 @@ document.querySelectorAll(".filter-btn").forEach(btn => {
     renderCards(getFiltered());
   });
 });
-
-// ─── INICIO ───────────────────────────────────────────────────────────────────
 
 updateStats();
 renderCards(ovas);
