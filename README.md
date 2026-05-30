@@ -88,7 +88,7 @@ ova-tgs/
 ## 🌐 Publicación
 
 Esta OVA está publicada en **GitHub Pages**:  
-🔗 [https://tamid555.github.io/ova-tgs](https://TuUsuario.github.io/ova-tgs)
+🔗 [https://tamid555.github.io/ova-tgs](https://tamid555.github.io/ova-tgs)
 
 
 ---
