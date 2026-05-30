@@ -49,25 +49,25 @@ const ovas = [
     num: 7,
     topic: "Caos en los sistemas",
     author: "Samuel Andeyber Leal Pérez",
-    link: https://fiendiz.github.io/OVA-CAOS-EN-LOS-SISTEMAS/
+    link: "https://fiendiz.github.io/OVA-CAOS-EN-LOS-SISTEMAS/"
   },
   {
     num: 8,
     topic: "Orígenes y principios de la TGS",
     author: "Jonathan David Melo Claro",
-    link: ovas/OVA_Jonathan_Melo/index.html
+    link: "ovas/OVA_Jonathan_Melo/index.html"
   },
   {
     num: 9,
     topic: "Conceptos de Teoría General de Sistemas (TGS)",
     author: "Anyelo Steven Oliveros Rivera",
-    link: https://github.com/Anyel01/OVA
+    link: "https://github.com/Anyel01/OVA"
   },
   {
     num: 10,
     topic: "El enfoque reduccionista",
     author: "Juan Carlos Parra Guzmán",
-    link: https://jcpg3197-afk.github.io/Ova_JuanC/
+    link: "https://jcpg3197-afk.github.io/Ova_JuanC/"
   },
   {
     num: 11,
@@ -91,13 +91,13 @@ const ovas = [
     num: 14,
     topic: "Teoría de la información",
     author: "Jesús David Sarmiento Ortiz",
-    link: https://syisus6.github.io
+    link: "https://syisus6.github.io"
   },
   {
     num: 15,
     topic: "Teoría de colas y de juegos",
     author: "Miguel Ángel Tamayo Molina",
-    link: https://migueltamayosci-wq.github.io/OVA-CURSO-TEORIA-DE-SISTEMAS/
+    link: "https://migueltamayosci-wq.github.io/OVA-CURSO-TEORIA-DE-SISTEMAS/"
   },
   {
     num: 16,
