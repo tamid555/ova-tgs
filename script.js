@@ -48,6 +48,15 @@ function iniciarMusica() {
   }
 }
 
+// Intenta iniciar al cargar, si el navegador lo permite
+window.addEventListener("load", function() {
+  audioNormal.play().then(function() {
+    musicaIniciada = true;
+  }).catch(function() {
+    // El navegador bloqueó el autoplay, espera primer clic
+  });
+});
+
 document.addEventListener("click", iniciarMusica, { once: true });
 document.addEventListener("keydown", iniciarMusica, { once: true });
 
