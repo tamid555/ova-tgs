@@ -22,7 +22,7 @@ const ovas = [
     num: 3,
     topic: "Definiciones formales (entrada, proceso, salida y retroalimentación)",
     author: "Jhon Alexander Arévalo Ropero",
-    link: "ovas/OVA_Jhon_Alexander/index.html",
+    link: null,
     thumb: "thumbnails/ova3.jpg"
   },
   {
@@ -36,7 +36,7 @@ const ovas = [
     num: 5,
     topic: "Parámetros de los sistemas (homeostasis y equilibrio)",
     author: "Rafael Steven Estupiñán Cáceres",
-    link: "https://rafasteve01.github.io/rafael/",
+    link: null,
     thumb: "thumbnails/ova5.jpg"
   },
   {
@@ -92,7 +92,7 @@ const ovas = [
     num: 13,
     topic: "Teoría de comportamientos",
     author: "Álvaro José Rubio Roa",
-    link: "https://mariobr1011.github.io/trabajo-tgs/",
+    link: null,
     thumb: "thumbnails/ova13.jpg"
   },
   {
@@ -113,7 +113,7 @@ const ovas = [
     num: 16,
     topic: "Teoría de la organización y cibernética",
     author: "Kevin Yesid Urbina García",
-    link: "ovas/OVA_Kevin_Urbina/TGS_Cibernetica_Y_Organizacion.html",
+    link: null,
     thumb: "thumbnails/ova16.jpg"
   },
   {
@@ -161,11 +161,17 @@ function renderCards(list) {
       ${hasThumb ? `
         <div class="ova-thumb">
           <img src="${ova.thumb}" alt="Vista previa OVA ${ova.num}" loading="lazy" />
+          <div class="ova-thumb-overlay">
+            <span class="ova-thumb-num">#${ova.num}</span>
+          </div>
         </div>
       ` : `
         <div class="ova-thumb ova-thumb-placeholder">
           <span class="placeholder-icon">📄</span>
           <span class="placeholder-text">Vista previa no disponible</span>
+          <div class="ova-thumb-overlay">
+            <span class="ova-thumb-num">#${ova.num}</span>
+          </div>
         </div>
       `}
       <div class="ova-card-body">
