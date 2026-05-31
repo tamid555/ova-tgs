@@ -618,6 +618,26 @@ body {
   transform: scale(1.04);
 }
 
+.ova-thumb-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.7) 100%);
+  pointer-events: none;
+}
+
+.ova-thumb-num {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: var(--red);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
 .ova-thumb-placeholder {
   display: flex;
   flex-direction: column;
@@ -642,6 +662,116 @@ body {
   flex-direction: column;
   gap: 10px;
   padding-top: 1rem;
+}
+
+/* ============ BOTONES FLOTANTES ============ */
+.floating-btns {
+  position: fixed;
+  bottom: 2rem;
+  right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  z-index: 999;
+}
+
+.float-btn {
+  background: var(--black-3);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-family: var(--font-body);
+  color: var(--white);
+  cursor: pointer;
+  transition: all 0.2s;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.float-btn:hover {
+  border-color: var(--red);
+  transform: translateY(-2px);
+}
+
+.float-btn.pausado {
+  opacity: 0.5;
+}
+
+.float-btn.aiku-btn {
+  border-color: rgba(0, 200, 80, 0.3);
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.float-btn.aiku-btn:hover {
+  border-color: #00c850;
+  background: rgba(0, 200, 80, 0.1);
+}
+
+/* ============ TEMA AIKU ============ */
+body.tema-aiku {
+  --red: #00c850;
+  --red-dark: #00a040;
+  --red-light: #00ff66;
+  --red-glow: rgba(0, 200, 80, 0.15);
+  --border-red: rgba(0, 200, 80, 0.3);
+  background-color: #080f0a;
+}
+
+body.tema-aiku::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('img/AIKU.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body.tema-aiku > * {
+  position: relative;
+  z-index: 1;
+}
+
+body.tema-aiku .hero {
+  background: rgba(8, 15, 10, 0.92);
+}
+
+body.tema-aiku .filter-section {
+  background: rgba(8, 15, 10, 0.95);
+}
+
+body.tema-aiku .badge {
+  background: #00c850;
+}
+
+body.tema-aiku .ova-link-btn.active {
+  background: #00c850;
+  border-color: #00c850;
+}
+
+body.tema-aiku .ova-link-btn.active:hover {
+  background: #00a040;
+}
+
+body.tema-aiku .filter-btn.active {
+  background: #00c850;
+  border-color: #00c850;
+}
+
+body.tema-aiku .ova-num {
+  background: #00c850;
+}
+
+body.tema-aiku .float-btn.aiku-btn {
+  border-color: #00c850;
+  background: rgba(0, 200, 80, 0.15);
+  color: #00ff66;
 }
 
 /* ============ ANIMATIONS ============ */
