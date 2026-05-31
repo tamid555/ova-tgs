@@ -673,11 +673,11 @@ body {
   flex-direction: column;
   align-items: flex-end;
   gap: 10px;
-  z-index: 999;
+  z-index: 9999;
 }
 
 .float-btn {
-  background: var(--black-3);
+  background: rgba(20, 20, 20, 0.85);
   border: 1px solid var(--border);
   border-radius: 50px;
   padding: 10px 16px;
@@ -687,7 +687,7 @@ body {
   cursor: pointer;
   transition: all 0.2s;
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
 }
 
 .float-btn:hover {
@@ -728,7 +728,7 @@ body.tema-aiku::before {
   background-size: cover;
   background-position: center top;
   background-attachment: fixed;
-  opacity: 0.12;
+  opacity: 0.25;
   pointer-events: none;
   z-index: 0;
 }
@@ -738,12 +738,45 @@ body.tema-aiku > * {
   z-index: 1;
 }
 
+/* Botones flotantes siempre encima en tema aiku */
+body.tema-aiku .floating-btns {
+  z-index: 9999;
+}
+
 body.tema-aiku .hero {
-  background: rgba(8, 15, 10, 0.92);
+  background: rgba(8, 15, 10, 0.55);
+}
+
+body.tema-aiku .intro-section {
+  background: transparent;
+}
+
+body.tema-aiku .intro-card {
+  background: rgba(8, 15, 10, 0.5);
+  backdrop-filter: blur(6px);
 }
 
 body.tema-aiku .filter-section {
-  background: rgba(8, 15, 10, 0.95);
+  background: rgba(8, 15, 10, 0.8);
+  backdrop-filter: blur(12px);
+}
+
+body.tema-aiku .ova-card {
+  background: rgba(8, 15, 10, 0.55);
+  backdrop-filter: blur(6px);
+}
+
+body.tema-aiku .about-section {
+  background: rgba(8, 15, 10, 0.5);
+}
+
+body.tema-aiku .about-card {
+  background: rgba(8, 15, 10, 0.5);
+  backdrop-filter: blur(6px);
+}
+
+body.tema-aiku .footer {
+  background: rgba(8, 15, 10, 0.7);
 }
 
 body.tema-aiku .badge {
