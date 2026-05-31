@@ -22,7 +22,7 @@ const ovas = [
     num: 3,
     topic: "Definiciones formales (entrada, proceso, salida y retroalimentación)",
     author: "Jhon Alexander Arévalo Ropero",
-    link: null,
+    link: "ovas/OVA_Jhon_Alexander/index.html",
     thumb: "thumbnails/ova3.jpg"
   },
   {
@@ -36,7 +36,7 @@ const ovas = [
     num: 5,
     topic: "Parámetros de los sistemas (homeostasis y equilibrio)",
     author: "Rafael Steven Estupiñán Cáceres",
-    link: null,
+    link: "https://rafasteve01.github.io/rafael/",
     thumb: "thumbnails/ova5.jpg"
   },
   {
@@ -92,7 +92,7 @@ const ovas = [
     num: 13,
     topic: "Teoría de comportamientos",
     author: "Álvaro José Rubio Roa",
-    link: null,
+    link: "https://mariobr1011.github.io/trabajo-tgs/",
     thumb: "thumbnails/ova13.jpg"
   },
   {
@@ -113,7 +113,7 @@ const ovas = [
     num: 16,
     topic: "Teoría de la organización y cibernética",
     author: "Kevin Yesid Urbina García",
-    link: null,
+    link: "ovas/OVA_Kevin_Urbina/TGS_Cibernetica_Y_Organizacion.html",
     thumb: "thumbnails/ova16.jpg"
   },
   {
