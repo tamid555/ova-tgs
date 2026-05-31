@@ -27,7 +27,7 @@ const ovas = [
     num: 5,
     topic: "Parámetros de los sistemas (homeostasis y equilibrio)",
     author: "Rafael Steven Estupiñán Cáceres",
-    link: null
+    link: "https://rafasteve01.github.io/rafael/"
   },
   {
     num: 6,
