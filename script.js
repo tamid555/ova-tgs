@@ -91,7 +91,7 @@ window.activarTemaAiku = function() {
     btnMusica.classList.remove("pausado");
   } else {
     body.classList.remove("tema-aiku");
-    btn.textContent = "⚽ Aiku?";
+    btn.textContent = "⚽";
     audioAiku.pause();
     audioNormal.currentTime = 0;
     audioNormal.volume = VOLUMEN_NORMAL;
