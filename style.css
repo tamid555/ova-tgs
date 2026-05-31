@@ -593,6 +593,77 @@ body {
   }
 }
 
+/* ============ THUMBNAILS ============ */
+.ova-thumb {
+  width: 100%;
+  height: 160px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  overflow: hidden;
+  position: relative;
+  background: var(--black-3);
+  margin: -1.2rem -1.4rem 0;
+  width: calc(100% + 2.8rem);
+}
+
+.ova-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.3s ease;
+  display: block;
+}
+
+.ova-card:hover .ova-thumb img {
+  transform: scale(1.04);
+}
+
+.ova-thumb-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.7) 100%);
+  pointer-events: none;
+}
+
+.ova-thumb-num {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: var(--red);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.ova-thumb-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+.placeholder-icon {
+  font-size: 2rem;
+  opacity: 0.4;
+}
+
+.placeholder-text {
+  font-size: 11px;
+  color: rgba(255,255,255,0.2);
+}
+
+.ova-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 1rem;
+}
+
 /* ============ ANIMATIONS ============ */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(16px); }
