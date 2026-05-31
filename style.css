@@ -725,21 +725,22 @@ body.tema-aiku::before {
   position: fixed;
   inset: 0;
   background-image: url('img/AIKU.jpg');
-  background-size: cover;
-  background-position: center top;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
   background-attachment: fixed;
-  opacity: 0.25;
+  opacity: 0.3;
   pointer-events: none;
   z-index: 0;
 }
 
-body.tema-aiku > * {
+body.tema-aiku > *:not(.floating-btns) {
   position: relative;
   z-index: 1;
 }
 
-/* Botones flotantes siempre encima en tema aiku */
 body.tema-aiku .floating-btns {
+  position: fixed;
   z-index: 9999;
 }
 
