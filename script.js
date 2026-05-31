@@ -11,7 +11,7 @@ const ovas = [
   { num: 1,  topic: "Definiciones de Sistema", author: "Jhonatan Javier Acevedo Gelves", link: null, thumb: null },
   { num: 2,  topic: "Clasificación general y características de los sistemas", author: "Eder Sahid Alvarado Peñaloza", link: null, thumb: null },
   { num: 3,  topic: "Definiciones formales (entrada, proceso, salida y retroalimentación)", author: "Jhon Alexander Arévalo Ropero", link: "ovas/OVA_Jhon_Alexander/index.html", thumb: "thumbnails/ova3.jpg" },
-  { num: 4,  topic: "Tipos de sistemas (dinámicos, estáticos, adaptativos, etc.)", author: "Luis Alberto Balaguera Arango", link: null, thumb: null },
+  { num: 4,  topic: "Tipos de sistemas (dinámicos, estáticos, adaptativos, etc.)", author: "Luis Alberto Balaguera Arango", link: "https://luis00187.github.io/OVA/", thumb: "thumbnails/ova4.jpg" },
   { num: 5,  topic: "Parámetros de los sistemas (homeostasis y equilibrio)", author: "Rafael Steven Estupiñán Cáceres", link: "https://rafasteve01.github.io/rafael/", thumb: "thumbnails/ova5.jpg" },
   { num: 6,  topic: "Propiedades de los sistemas", author: "Sebastián Gelves Triana", link: null, thumb: null },
   { num: 7,  topic: "Caos en los sistemas", author: "Samuel Andeyber Leal Pérez", link: "https://fiendiz.github.io/OVA-CAOS-EN-LOS-SISTEMAS/", thumb: "thumbnails/ova7.jpg" },
