@@ -161,17 +161,11 @@ function renderCards(list) {
       ${hasThumb ? `
         <div class="ova-thumb">
           <img src="${ova.thumb}" alt="Vista previa OVA ${ova.num}" loading="lazy" />
-          <div class="ova-thumb-overlay">
-            <span class="ova-thumb-num">#${ova.num}</span>
-          </div>
         </div>
       ` : `
         <div class="ova-thumb ova-thumb-placeholder">
           <span class="placeholder-icon">📄</span>
           <span class="placeholder-text">Vista previa no disponible</span>
-          <div class="ova-thumb-overlay">
-            <span class="ova-thumb-num">#${ova.num}</span>
-          </div>
         </div>
       `}
       <div class="ova-card-body">
